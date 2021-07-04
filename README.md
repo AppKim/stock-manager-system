@@ -32,6 +32,7 @@
 ## その他
 githubなどから初めてローカルに持ってきた場合は以下の手順でプロジェクトを開始します
 ```bash
+$ docker-compose run web rails db:create 
 $ docker-compose run front npm install
 $ docker-compose up
 ```
