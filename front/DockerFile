@@ -1,15 +1,9 @@
-FROM node:15.4.0-alpine
+FROM node:12.18.3-alpine
 
-ENV HOME="/app" \
-    LANG=C.UTF-8 \
-    TZ=Asia/Tokyo 
+ENV APP_HOME /app
+RUN mkdir -p $APP_HOME
+WORKDIR $APP_HOME
 
-WORKDIR ${HOME}
-
-RUN apk update && \
-    apk upgrade && \
-    npm install -g npm && \
-    npm install -g @vue/cli
-
-ENV HOST 0.0.0.0
-EXPOSE 3000
+RUN apk update && npm install -g @vue/cli
+COPY package.json .
+RUN npm install

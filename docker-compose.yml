@@ -1,32 +1,37 @@
-version: "3"
+version: '3'
 
 services:
-  db:
-    image: db
-    container_name: sample_db
-    image: postgres:11.4-alpine
-    environment:
-      - TZ=Asia/Tokyo
-    volumes:
-      - ./back/tmp/db:/var/lib/postgresql/data
-
-  back:
-    imgae: back
-    container_name: sample_back
-    build: back/
-    volumes:
-      - ./back:/app
+  web:
+    build: ./back
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    ports:
+      - '3000:3000'
     depends_on:
       - db
+    volumes:
+      - ./back:/app
+      - bundle:/usr/local/bundle
+    tty: true
+    stdin_open: true
+  db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql/
+    environment:
+      MYSQL_ROOT_PASSWORD: password
     ports:
-      - 3000:3000
-
+      - '3306:3306'
   front:
-    imgae: front
-    container_name: sample_front
-    build: front/
-    command: npm run dev
+    build: ./front
     volumes:
       - ./front:/app
     ports:
-      - 8080:3000
+      - '8080:8080'
+    tty: true
+    stdin_open: true
+    command: npm run serve
+
+volumes:
+  mysql_data:
+  bundle:
