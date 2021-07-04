@@ -2,6 +2,7 @@ version: "3"
 
 services:
   db:
+    image: db
     container_name: sample_db
     image: postgres:11.4-alpine
     environment:
@@ -10,6 +11,7 @@ services:
       - ./back/tmp/db:/var/lib/postgresql/data
 
   back:
+    imgae: back
     container_name: sample_back
     build: back/
     volumes:
@@ -20,6 +22,7 @@ services:
       - 3000:3000
 
   front:
+    imgae: front
     container_name: sample_front
     build: front/
     command: npm run dev
