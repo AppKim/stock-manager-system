@@ -7,17 +7,17 @@
       z-10
       flex-col
       w-60
-      min-h-1123
+      min-h-[1123px]
       text-xs
       font-normal
       bg-gray-200
     "
   >
     <!-- Title -->
-    <div class="flex relative pc:flex-col justify-center items-center h-20">
-      <div>Company Name</div>
+    <div class="flex flex-col relative justify-center items-center h-20">
+      <div class="text-lg">Stock Manager</div>
       <button
-        class="absolute top-4 right-4 text-white"
+        class="absolute top-4 right-4 text-black"
         @click="$emit('toggleBtnClick')"
       >
         X
@@ -32,9 +32,11 @@
     <!-- Navigation -->
     <nav class="pt-3">
       <div v-for="page in pages" :key="page.id">
-        <div class="h-20 text-black flex items-center justify-center text-lg">
-          {{ page.name }}
-        </div>
+        <router-link :to="page.href">
+          <div class="h-20 text-black flex items-center justify-center text-lg">
+            {{ page.name }}
+          </div>
+        </router-link>
       </div>
     </nav>
   </aside>
@@ -49,32 +51,14 @@ export default Vue.extend({
     return {
       pages: [
         {
-          name: "제품목록",
+          href: "/",
+          name: "Home",
           id: 1,
         },
         {
-          name: "입고/출고",
+          href: "/about",
+          name: "About",
           id: 2,
-        },
-        {
-          name: "히스토리",
-          id: 3,
-        },
-        {
-          name: "대시보드",
-          id: 4,
-        },
-        {
-          name: "설정",
-          id: 5,
-        },
-        {
-          name: "마이페이지",
-          id: 6,
-        },
-        {
-          name: "문의",
-          id: 7,
         },
       ],
     };
