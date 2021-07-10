@@ -1,31 +1,22 @@
-
 <template>
   <div class="flex h-full min-h-[1123px] bg-gray-300">
     <transition name="fade">
-      <div v-show="isOpen || curWidth > 940" class="w-60">
+      <div v-show="isOpen" class="w-60">
         <SideBar @toggleBtnClick="toggleBtnClick" />
       </div>
     </transition>
     <div
-      class="flex flex-col flex-1 mx-auto min-w-[1162px] max-w-[1162px]"
-      :class="
-        isOpen ? 'opacity-30 absolute left:0 top:0 pointer-events-none' : ''
-      "
+      class="flex-1 flex flex-col mx-auto min-w-[1162px] max-w-[1162px]"
+      :class="isOpen && curWidth < 1400 ? 'opacity-30 pointer-events-none' : ''"
     >
       <div class="h-20">
         <Header @toggleBtnClick="toggleBtnClick" />
       </div>
-      <transition name="page">
-        <div class="flex-1">
-          <div class="bg-white" id="app">
-            <div>이부분의 내용이</div>
-            <div>주로 바뀌면서 페이지를 이동하는걸로</div>
-            <div>하는겁니다</div>
-            <img alt="Vue logo" src="./assets/logo.png" />
-            <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-          </div>
-        </div>
-      </transition>
+      <div class="flex-1 bg-white">
+        <transition name="page">
+          <router-view />
+        </transition>
+      </div>
       <div class="h-16">
         <Footer />
       </div>
@@ -35,22 +26,20 @@
 
 <script lang="ts">
 import Vue from "vue";
-import SideBar from "@/components/organisms/SideBar.vue";
-import HelloWorld from "./components/HelloWorld.vue";
-import Header from "@/components/organisms/Header.vue";
-import Footer from "@/components/organisms/Footer.vue";
+import SideBar from "@/components/common/SideBar.vue";
+import Header from "@/components/common/Header.vue";
+import Footer from "@/components/common/Footer.vue";
 
 export default Vue.extend({
   name: "App",
   components: {
     Header,
     Footer,
-    HelloWorld,
     SideBar,
   },
   data() {
     return {
-      isOpen: false,
+      isOpen: true,
       curWidth: window.innerWidth,
     };
   },
@@ -64,6 +53,11 @@ export default Vue.extend({
   methods: {
     handleResize() {
       this.curWidth = window.innerWidth;
+      if (window.innerWidth < 1400) {
+        this.isOpen = false;
+      } else {
+        this.isOpen = true;
+      }
     },
     toggleBtnClick() {
       this.isOpen = !this.isOpen;
@@ -72,15 +66,7 @@ export default Vue.extend({
 });
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
 .fade-enter-active,
 .fade-leave-active {
   transition: margin 0.3s;
@@ -96,6 +82,6 @@ export default Vue.extend({
 .page-enter,
 .page-leave-to {
   opacity: 0;
-  transform: translateX(-100px);
+  transform: translateX(-10px);
 }
 </style>
