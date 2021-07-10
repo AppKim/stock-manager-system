@@ -12,7 +12,7 @@
       <div class="h-20">
         <Header @toggleBtnClick="toggleBtnClick" />
       </div>
-      <div class="flex-1 bg-white">
+      <div class="flex-1">
         <transition name="page">
           <router-view />
         </transition>

@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full">
+  <div class="bg-white h-full">
     <h1>Index Page</h1>
   </div>
 </template>
