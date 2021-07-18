@@ -10,9 +10,9 @@ class CreateProducts < ActiveRecord::Migration[6.0]
       t.string :pr_img, limit: 255, null: true
       t.datetime :pr_expiration, null: false 
 
-      add_foreign_key :categories, :pr_ca_id, column: :ca_id, primary_key: :ca_id
-      add_foreign_key :brands, :pr_br_id, column: :br_id, primary_key: :br_id
-      add_foreign_key :user, :pr_us_id, column: :us_id, primary_key: :us_id
+      add_foreign_key :products, :categories, column: :pr_ca_id, primary_key: :ca_id
+      add_foreign_key :products, :brands, column: :pr_br_id, primary_key: :br_id
+      add_foreign_key :products, :user, column: :pr_us_id, primary_key: :us_id
     end
   end
 end

@@ -4,8 +4,7 @@ class CreateSessions < ActiveRecord::Migration[6.0]
       t.integer :se_us_id, null: false
       t.string :se_id, null: false, limit: 255
 
-      
-      add_foreign_key :users, :se_us_id, column: :us_id, primary_key: :us_id
+      add_foreign_key :sessions, :users, column: :se_us_id, primary_key: :us_id
     end
   end
 end
