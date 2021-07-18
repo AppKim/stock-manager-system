@@ -5,7 +5,7 @@ class CreateHistories < ActiveRecord::Migration[6.0]
       t.text :hi_comments, null: false
 
       
-      add_foreign_key :companys, :hi_co_id, column: :co_id, primary_key: :co_id
+      add_foreign_key :companies, :hi_co_id, column: :co_id, primary_key: :co_id
     end
   end
 end
