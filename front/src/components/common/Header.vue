@@ -18,7 +18,7 @@
       </button>
     </div>
     <div class="flex justify-between">
-      <span class="mr-6">heewon</span>
+      <router-link to="/login" class="mr-6">Login</router-link>
       <span>logout</span>
     </div>
   </header>
