@@ -1,4 +1,5 @@
-module Roles
+module Api
+  module RoleServices
     class IndexService
         def initialize
         end
@@ -12,4 +13,5 @@ module Roles
             @role = Role.all
         end
     end
+  end
 end
