@@ -7,12 +7,44 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
+    meta: {
+      isMenu: true,
+      layout: "AfterLogin",
+      requireAuth: true,
+      icon: "fas fa-home fa-fw text-2xl",
+    },
     component: () => import("@/views/index.vue"),
   },
   {
     path: "/about",
     name: "About",
+    meta: {
+      isMenu: true,
+      layout: "AfterLogin",
+      requireAuth: true,
+      icon: "fas fa-home fa-fw text-2xl",
+    },
     component: () => import("@/views/About.vue"),
+  },
+  {
+    path: "/login",
+    name: "Login",
+    meta: {
+      isMenu: false,
+      layout: "BeforeLogin",
+      requireAuth: false,
+    },
+    component: () => import("@/views/Login.vue"),
+  },
+  {
+    path: "/register",
+    name: "Register",
+    meta: {
+      isMenu: false,
+      layout: "BeforeLogin",
+      requireAuth: false,
+    },
+    component: () => import("@/views/Register.vue"),
   },
 ];
 
