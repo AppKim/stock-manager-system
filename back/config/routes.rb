@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   namespace :api, { format: 'json' } do
     get "role" => "roles#index"
     resources :products
+    get "stock" => "stocks#index"
   end
 end
