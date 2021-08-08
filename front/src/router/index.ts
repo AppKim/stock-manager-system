@@ -37,6 +37,17 @@ const routes: Array<RouteConfig> = [
     component: () => import("@/views/Login.vue"),
   },
   {
+    path: "/product",
+    name: "Product",
+    meta: {
+      isMenu: true,
+      layout: "AfterLogin",
+      requireAuth: true,
+      icon: "",
+    },
+    component: () => import("@/views/Product.vue"),
+  },
+  {
     path: "/register",
     name: "Register",
     meta: {

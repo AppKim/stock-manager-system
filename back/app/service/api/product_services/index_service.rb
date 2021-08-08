@@ -10,7 +10,17 @@ module Api
   
         private
         def get_product_list
-            @result = Product.all
+          @result = {
+            pr_id: 1 , 
+            pr_ca_id: 2, 
+            pr_br_id: 3, 
+            pr_us_id: 4, 
+            pr_price: 1000,
+            pr_barcode: 'barcode',
+            pr_img: 'img',
+            pr_expiration: 'expiration',
+          }
+          # @result = Product.all
         end
     end
   end
