@@ -14,7 +14,7 @@
       </div>
       <div class="flex-1">
         <transition name="page">
-          <router-view />
+          <router-view class="h-full w-full" />
         </transition>
       </div>
       <div class="h-16">

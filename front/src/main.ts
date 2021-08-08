@@ -19,6 +19,8 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  // vues store : 데이터저장창고
+  // https://www.koatech.info/blog/vuex-basis/
   store,
   render: (h) => h(App),
 }).$mount("#app");

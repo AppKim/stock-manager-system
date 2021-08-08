@@ -32,7 +32,7 @@
     <!-- Navigation -->
     <nav class="pt-3">
       <div v-for="page in pages" :key="page.id">
-        <router-link :to="page.href">
+        <router-link :to="page.path" v-if="page.meta.isMenu">
           <div class="h-20 text-black flex items-center justify-center text-lg">
             {{ page.name }}
           </div>
@@ -43,24 +43,16 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
+import { RouteConfig } from "vue-router";
 
 export default Vue.extend({
   name: "SideBar",
-
+  created() {
+    this.pages = this.$router.options.routes as RouteConfig[];
+  },
   data() {
     return {
-      pages: [
-        {
-          href: "/",
-          name: "Home",
-          id: 1,
-        },
-        {
-          href: "/about",
-          name: "About",
-          id: 2,
-        },
-      ],
+      pages: [] as RouteConfig[],
     };
   },
 });
