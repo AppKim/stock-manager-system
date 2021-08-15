@@ -9,4 +9,4 @@
 #     json.pr_expiration product.pr_expiration
 # end
 
-json.extract! @result, :pr_id, :pr_ca_id, :pr_br_id, :pr_us_id, :pr_price, :pr_barcode, :pr_img, :pr_expiration
+json.extract! @result, :pr_id, :pr_ca_id, :pr_br_id, :pr_us_id, :pr_price, :pr_barcode
