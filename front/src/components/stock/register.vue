@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-blue-300 h-full w-full">
+  <div class="bg-green-300 h-full w-full">
     <section class="flex flex-col space-y-2">
       <div>
         <label name="stockName">재고명</label>
