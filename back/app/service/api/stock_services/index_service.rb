@@ -9,8 +9,8 @@ module Stocks
 
         private
         def get_stock_list
-         #  @stock = Stock.ALL
-            @stock = Stock.find_by(st_id: 1235)
+        #  @stock = Stock.ALL
+            @stock = Stock.find_by(st_id: 1)
             logger.debug(@stock)
         end
     end
