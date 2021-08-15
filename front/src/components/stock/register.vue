@@ -25,8 +25,7 @@ export default {
   data() {
     return {
       stockName: "",
-      stockCount: ""
-
+      stockCount: "",
     };
   },
   methods: {
