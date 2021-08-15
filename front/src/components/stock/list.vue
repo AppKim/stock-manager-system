@@ -11,12 +11,12 @@
           <th>수량</th>
         </thead>
         <tbody v-for="(item, index) in items" :key="index">
-          <th>{{ item.st_id }}</th>
-          <th>{{ item.pr_ca_id }}</th>
-          <th>{{ item.pr_br_id }}</th>
-          <th>{{ item.pr_price }}</th>
-          <th>{{ item.pr_expiration }}</th>
-          <th>{{ item.st_exist }}</th>
+          <th>{{ item.array[index].st_id }}</th>
+          <th>{{ item.array[index].pr_ca_id }}</th>
+          <th>{{ item.array[index].pr_br_id }}</th>
+          <th>{{ item.array[index].pr_price }}</th>
+          <th>{{ item.array[index].pr_expiration }}</th>
+          <th>{{ item.array[index].st_exist }}</th>
         </tbody>
       </table>
     </div>
