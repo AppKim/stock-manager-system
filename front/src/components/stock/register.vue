@@ -1,6 +1,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
 <template >
-  <div v-if="details">
+  <div v-if="type">
     <div id = "app" class="bg-green-300 h-full w-full">
       <section class="flex flex-col space-y-2">
         <h1>Detail &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button @click="disabled = !disabled" class="button">활성화</button></h1>
@@ -36,6 +36,7 @@
   </div>
 
   <div v-else>
+    <h1>ELSE</h1>
     <!-- <div id = "app" class="bg-green-300 h-full w-full">
       <section class="flex flex-col space-y-2">
         <h1>Detail &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button @click="disabled = !disabled" class="button">활성화</button></h1>
@@ -67,8 +68,8 @@
           <button class="submitBtn" id="cancelStock">취소</button>
         </div>
       </section>
-    </div>
-  </div> -->
+    </div> -->
+  </div>
 </template>
 
 
@@ -82,22 +83,35 @@ export default {
       brandId: "",
       stockCount: "",
 
+      type: true,
       disabled: false,
-      brandList: [ "Lotte", "Nongsim", "Samyang", "Ohttoogi", "Paldo" ],
-      details: true,
+      brandList: ["Lotte", "Nongsim", "Samyang", "Ohttoogi", "Paldo" ],
+      
     };
   },
+  // created() {
+  //   this.getBrand();
+  // },
   methods: {
     inputStock() {
       this.stockName = "";
       this.stockCount = "";
       this.brandId = "";
-    },    
+    }, 
+    // getBrand() {
+    //   Axios.get("http://localhost:3000/api/brand")
+    //     .then((rs) => {
+    //       this.brandList.push(rs.data);
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    // },
+    // mounted: function(){
+    // Axios.get('http://localhost:3000/api/brand').then(response => this.brandList = response.data);
+    // },   
   },
 };
-// $('#actiivation').click(function() {
-//   $('input').attr('disabled', 'disabled');
-// });
 </script>
 <style scoped>
 li {
