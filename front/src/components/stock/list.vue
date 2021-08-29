@@ -71,7 +71,7 @@ export default Vue.extend({
             st_id: element.st_id,
             pr_ca_id: element.pr_ca_id,
             pr_br_id: element.pr_br_id,
-            pr_price: element.st_id,
+            pr_price: element.pr_price,
             pr_expiration: element.pr_expiration,
             st_exist: element.st_exist,
              });
