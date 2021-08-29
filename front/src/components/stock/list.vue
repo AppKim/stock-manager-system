@@ -28,14 +28,14 @@
           <th>선택</th>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in items" :key="index">
-            <td>{{ item.array[index].st_id }}</td>
-            <td>{{ item.array[index].pr_ca_id }}</td>
-            <td>{{ item.array[index].pr_br_id }}</td>
-            <td>{{ item.array[index].pr_price }}</td>
-            <td>{{ item.array[index].pr_expiration }}</td>
-            <td>{{ item.array[index].st_exist }}</td>
-            <td><button class="btn medium" v-on:click="conrifmRow(index)">OK</button></td>
+           <tr v-for="item in this.data.items" v-bind:key="item.id">
+            <td>{{ item.st_id }}</td>
+            <td>{{ item.pr_ca_id }}</td>
+            <td>{{ item.pr_br_id }}</td>
+            <td>{{ item.pr_price }}</td>
+            <td>{{ item.pr_expiration }}</td>
+            <td>{{ item.st_exist }}</td>
+            <td><button class="btn medium" v-on:click="conrifmRow(index)">OK</button></td>          
           </tr>
         </tbody>
       </table>
@@ -51,28 +51,81 @@ export default Vue.extend({
   name: "Stock",
   data() {
     return {
+     data: {
       items: [],
+      }
+    // items: [
+    //       {st_id:'1',
+    //       st_pr_id:'1',
+    //       st_exist:'1',
+    //       pr_id:'1',
+    //       pr_ca_id:'1',
+    //       pr_br_id:'1',
+    //       pr_us_id:'1',
+    //       pr_price:"1000",
+    //       pr_barcode:
+    //       '1234567',
+    //       pr_img:null,
+    //       pr_expiration:
+    //       '2022-08-11T12:00:00.000Z'},
+    //       {st_id:'2',
+    //       st_pr_id:'2',
+    //       st_exist:'1',
+    //       pr_id:'2',
+    //       pr_ca_id:'2',
+    //       pr_br_id:'2',
+    //       pr_us_id:'2',
+    //       pr_price:"2000",
+    //       pr_barcode:
+    //       '7654321',
+    //       pr_img:null,
+    //       pr_expiration:
+    //       '2022-08-11T12:00:00.000Z'},
+    //       {st_id:'3',
+    //       st_pr_id:'3',
+    //       st_exist:'1',
+    //       pr_id:'3',
+    //       pr_ca_id:'3',
+    //       pr_br_id:'3',
+    //       pr_us_id:'3',
+    //       pr_price:"3000",
+    //       pr_barcode:
+    //       '4567890',
+    //       pr_img:null,
+    //       pr_expiration:
+    //       '2022-08-11T12:00:00.000Z'}
+    // ]
     };
   },
   created() {
     this.getStock();
+    
   },
   methods: {
     getStock() {
-      Axios.get("http://localhost:3000/api/stock")
+      Axios.get("http://localhost:3000/api/stock")    
         .then((rs) => {
-          this.items.push(rs.data);
+         //this.data.items.push(rs.data);
+         console.log("★★★log★★★"+ JSON.stringify(rs.data)); 
+          rs.data.forEach((element: any) => {
+            this.data.items.push({
+            st_id: element.st_id,
+            pr_ca_id: element.pr_ca_id,
+            pr_br_id: element.pr_br_id,
+            pr_price: element.st_id,
+            pr_expiration: element.pr_expiration,
+            st_exist: element.st_exist,
+             });
+        });
+         // this.data.items = rs.data.items;
         })
         .catch((e) => {
           console.log(e);
         });
     },
-    confirmRow: function(index) {
-   this.$confirm(this.items.index)
+    confirmRow: function(index: any) {
+   this.$confirm(index)
     },
-    mounted: function(){
-    Axios.get('http://localhost:3000/api/stock').then(response => this.items = response.data);
-  }
   },
 });
 </script>
@@ -168,7 +221,7 @@ button, input, optgroup, select, textarea {
 }
 button {
     appearance: auto;
-    -webkit-writing-mode: horizontal-tb !important;
+    /* -webkit-writing-mode: horizontal-tb !important; */
     text-rendering: auto;
     color: -internal-light-dark(black, white);
     letter-spacing: normal;
