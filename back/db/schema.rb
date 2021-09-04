@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_04_044523) do
+ActiveRecord::Schema.define(version: 2021_09_04_052233) do
 
   create_table "brands", primary_key: "br_id", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "br_name", limit: 50, null: false, comment: "ブランド名"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2021_09_04_044523) do
     t.datetime "pr_expiration", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "pr_name"
     t.index ["pr_br_id"], name: "fk_rails_eada080a8c"
     t.index ["pr_ca_id"], name: "fk_rails_8ad1770423"
     t.index ["pr_us_id"], name: "fk_rails_276878f622"
