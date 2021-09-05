@@ -10,7 +10,7 @@ module Api
 
             private
             def get_stock_list
-                 @result = Stock.joins(:product).select('stocks.*, products.*, count(stocks.st_pr_id) as count').group('stocks.st_id')
+                 @result = Stock.joins(:product).select('stocks.st_pr_id, products.pr_ca_id, products.pr_br_id, products.pr_price ,products.pr_expiration, count(stocks.st_pr_id) as count ').group('stocks.st_pr_id')
             end
         end
     end
