@@ -33,7 +33,7 @@
             <td>{{ item.pr_br_id }}</td>
             <td>{{ item.pr_price }}</td>
             <td>{{ item.pr_expiration }}</td>
-            <td>{{ item.count }}</td>
+            <td>{{ item.st_exist}}</td>
             <td>
               <button
                 class="
