@@ -18,7 +18,7 @@
     <div class="stock-table">
       <table>
         <thead>
-          <th>재고ID</th>
+          <th>상품재고ID</th>
           <th>카테고리ID</th>
           <th>브랜드</th>
           <th>가격</th>
@@ -28,7 +28,7 @@
         </thead>
         <tbody>
           <tr v-for="item in this.data.items" v-bind:key="item.id">
-            <td>{{ item.st_id }}</td>
+            <td>{{ item.st_pr_id }}</td>
             <td>{{ item.pr_ca_id }}</td>
             <td>{{ item.pr_br_id }}</td>
             <td>{{ item.pr_price }}</td>
@@ -66,6 +66,7 @@ export default Vue.extend({
     return {
       data: {
         items: [],
+        type: true,
       },
     };
   },
@@ -80,7 +81,7 @@ export default Vue.extend({
           console.log("★★★log★★★" + JSON.stringify(rs.data));
           rs.data.forEach((element: any) => {
             this.data.items.push({
-              st_id: element.st_id,
+              st_pr_id: element.st_pr_id,
               pr_ca_id: element.pr_ca_id,
               pr_br_id: element.pr_br_id,
               pr_price: element.pr_price,
