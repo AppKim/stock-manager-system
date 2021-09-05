@@ -10,7 +10,7 @@
       </section>
       <section class="_additional-buttons_yev6m_38">
         <button
-          class="w-full h-12 text-white bg-primary rounded-full hover:bg-dark"
+          class="w-55 h-12 text-white bg-primary rounded-full hover:bg-dark"
         >
           추가버튼
         </button>
