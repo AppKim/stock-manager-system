@@ -33,7 +33,7 @@
             <td>{{ item.pr_br_id }}</td>
             <td>{{ item.pr_price }}</td>
             <td>{{ item.pr_expiration }}</td>
-            <td>{{ item.st_exist}}</td>
+            <td>{{ item.count }}</td>
             <td>
               <button
                 class="
@@ -85,7 +85,7 @@ export default Vue.extend({
               pr_br_id: element.pr_br_id,
               pr_price: element.pr_price,
               pr_expiration: element.pr_expiration,
-              st_exist: element.st_exist,
+              count: element.count,
             });
           });
           // this.data.items = rs.data.items;
