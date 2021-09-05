@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Axios from "axios";
+import { axiosGet } from "@/api/axios.js";
 
 export default Vue.extend({
   name: "Product",
@@ -43,7 +43,7 @@ export default Vue.extend({
   },
   methods: {
     getProduct() {
-      Axios.get("http://localhost:3000/api/products")
+      axiosGet("api/products")
         .then((rs) => {
           this.items.push(rs.data);
         })
