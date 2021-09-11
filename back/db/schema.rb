@@ -61,6 +61,8 @@ ActiveRecord::Schema.define(version: 2021_09_04_052233) do
   create_table "stocks", primary_key: "st_id", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "st_pr_id", null: false
     t.integer "st_exist", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["st_pr_id"], name: "fk_rails_727a2f2c9f"
   end
 
