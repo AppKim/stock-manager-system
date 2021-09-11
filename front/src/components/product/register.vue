@@ -14,6 +14,15 @@
         <input type="text" name="productBrand" v-model="productBrand" />
       </div>
       <div>
+        <label name="productImage">이미지</label>
+        <input
+          type="file"
+          name="image"
+          accept="image/png,image/jpeg"
+          @change="setImage"
+        />
+      </div>
+      <div>
         <label name="productBarcode">바코드</label>
         <input type="text" name="productBarcode" v-model="productBarcode" />
       </div>
@@ -29,6 +38,8 @@
   </div>
 </template>
 <script>
+import { axiosPost } from "@/api/axios.js";
+
 export default {
   data() {
     return {
@@ -36,14 +47,35 @@ export default {
       productPrice: "",
       productBrand: "",
       productBarcode: "",
+      imageFile: "",
     };
   },
   methods: {
+    setImage(e) {
+      this.imageFile = e.target.files[0];
+    },
     createProduct() {
+      console.log(this.imageFile);
+      let path = "/api/products";
+      let formData = new FormData();
+      formData.append("productName", this.productName);
+      formData.append("productPrice", this.productPrice);
+      formData.append("productBrand", this.productBrand);
+      formData.append("productBarcode", this.productBarcode);
+      formData.append("productImage", this.imageFile);
+      axiosPost(path, formData)
+        .then((rs) => {
+          console.log(rs);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+
       this.productName = "";
       this.productPrice = "";
       this.productBrand = "";
       this.productBarcode = "";
+      this.productImage = null;
     },
   },
 };
