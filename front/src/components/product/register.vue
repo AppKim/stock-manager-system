@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-red-500 h-full w-full">
+  <div class="bg-red-500 w-full h-full">
     <section class="flex flex-col space-y-2">
       <div>
         <label name="productName">상품명</label>
@@ -18,27 +18,51 @@
         <input type="text" name="productBarcode" v-model="productBarcode" />
       </div>
       <div>
-        <input type="button" class="submitBtn" value="submit" @click="createProduct" />
+        <input v-if="!isEdit" type="button" class="submitBtn" value="submit" @click="createProduct" />
+        <input v-else type="button" class="submitBtn" value="update" @click="updateProduct" />
       </div>
     </section>
   </div>
 </template>
 <script>
+import { axiosPut } from "@/api/axios.js"
+
 export default {
+  props: {
+    isEdit: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    editProductId: {
+      type: String,
+      required: false,
+      default: "",
+    },
+  },
   data() {
     return {
-      productName: '',
-      productPrice: '',
-      productBrand: '',
-      productBarcode: '',
+      productName: "",
+      productPrice: "",
+      productBrand: "",
+      productBarcode: "",
     }
   },
   methods: {
     createProduct() {
-      this.productName = ''
-      this.productPrice = ''
-      this.productBrand = ''
-      this.productBarcode = ''
+      this.productName = ""
+      this.productPrice = ""
+      this.productBrand = ""
+      this.productBarcode = ""
+    },
+    updateProduct() {
+      axiosPut("api/products", 1, {})
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
   },
 }
