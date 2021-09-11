@@ -18,12 +18,7 @@
         <input type="text" name="productBarcode" v-model="productBarcode" />
       </div>
       <div>
-        <input
-          type="button"
-          class="submitBtn"
-          value="submit"
-          @click="createProduct"
-        />
+        <input type="button" class="submitBtn" value="submit" @click="createProduct" />
       </div>
     </section>
   </div>
@@ -32,21 +27,21 @@
 export default {
   data() {
     return {
-      productName: "",
-      productPrice: "",
-      productBrand: "",
-      productBarcode: "",
-    };
+      productName: '',
+      productPrice: '',
+      productBrand: '',
+      productBarcode: '',
+    }
   },
   methods: {
     createProduct() {
-      this.productName = "";
-      this.productPrice = "";
-      this.productBrand = "";
-      this.productBarcode = "";
+      this.productName = ''
+      this.productPrice = ''
+      this.productBrand = ''
+      this.productBarcode = ''
     },
   },
-};
+}
 </script>
 <style scoped>
 li {
