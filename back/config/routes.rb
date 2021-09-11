@@ -4,5 +4,6 @@ Rails.application.routes.draw do
     get 'role' => 'roles#index'
     resources :products, only: %i[index create update]
     get 'stock' => 'stocks#index'
+    get "brand" => "brands#index"
   end
 end

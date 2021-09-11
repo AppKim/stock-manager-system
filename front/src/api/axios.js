@@ -7,6 +7,12 @@ export const axiosGet = (path, param) => {
   return axios.get(requestURL)
 }
 
+export const axiosPost = (path, param) => {
+  console.log(param)
+  const requestURL = path
+  return axios.post(requestURL, param)
+}
+
 export const axiosPut = (path, id, param) => {
   const requestURL = "/" + path + (id ? "/" + id : "")
   return axios.put(requestURL, param)
