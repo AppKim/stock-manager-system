@@ -25,10 +25,10 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import SideBar from "@/components/common/SideBar.vue";
-import Header from "@/components/common/Header.vue";
-import Footer from "@/components/common/Footer.vue";
+import Vue from "vue"
+import SideBar from "@/components/common/SideBar.vue"
+import Header from "@/components/common/Header.vue"
+import Footer from "@/components/common/Footer.vue"
 
 export default Vue.extend({
   name: "AfterLogin",
@@ -39,31 +39,36 @@ export default Vue.extend({
   },
   data() {
     return {
-      isOpen: true,
+      isOpen: window.innerWidth < 1400 ? false : true,
       curWidth: window.innerWidth,
-    };
+    }
+  },
+  watch: {
+    $route() {
+      this.isOpen = window.innerWidth < 1400 ? false : true
+    },
   },
   mounted() {
-    window.addEventListener("resize", this.handleResize);
+    window.addEventListener("resize", this.handleResize)
   },
   beforeDestroy() {
-    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("resize", this.handleResize)
   },
 
   methods: {
     handleResize() {
-      this.curWidth = window.innerWidth;
+      this.curWidth = window.innerWidth
       if (window.innerWidth < 1400) {
-        this.isOpen = false;
+        this.isOpen = false
       } else {
-        this.isOpen = true;
+        this.isOpen = true
       }
     },
     toggleBtnClick() {
-      this.isOpen = !this.isOpen;
+      this.isOpen = !this.isOpen
     },
   },
-});
+})
 </script>
 
 <style scoped>
