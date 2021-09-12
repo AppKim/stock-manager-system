@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import Vue from "vue"
-import { axiosGet } from "@/api/axios.js"
+import { axiosGet, axiosDelete } from "@/api/axios.js"
 
 export default Vue.extend({
   name: "Product",
@@ -82,8 +82,13 @@ export default Vue.extend({
         })
     },
     deleteProduct(pr_id: string) {
-      // Delete
-      // axiosDelete("api/products")
+      axiosDelete("api/products", pr_id)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     },
   },
 })
