@@ -11,7 +11,15 @@
       </div>
       <div>
         <label name="productBrand">브랜드</label>
-        <input type="text" name="productBrand" v-model="productBrand" />
+        <select name="productBrand" v-model="productBrand">
+          <option
+            v-for="(brand, index) in brands"
+            :value="brand.id"
+            v-bind:key="index"
+          >
+            {{ brand.name }}
+          </option>
+        </select>
       </div>
       <div>
         <label name="productImage">이미지</label>
@@ -27,6 +35,14 @@
         <input type="text" name="productBarcode" v-model="productBarcode" />
       </div>
       <div>
+        <label name="productExpiration">유통기한</label>
+        <input
+          type="date"
+          name="productExpiration"
+          v-model="productExpiration"
+        />
+      </div>
+      <div>
         <input
           type="button"
           class="submitBtn"
@@ -38,7 +54,7 @@
   </div>
 </template>
 <script>
-import { axiosPost } from "@/api/axios.js";
+import { axiosPost, axiosGet } from "@/api/axios.js";
 
 export default {
   data() {
@@ -47,15 +63,19 @@ export default {
       productPrice: "",
       productBrand: "",
       productBarcode: "",
+      productExpiration: "",
       imageFile: "",
+      brands: "",
     };
+  },
+  created() {
+    this.getBrand();
   },
   methods: {
     setImage(e) {
       this.imageFile = e.target.files[0];
     },
     createProduct() {
-      console.log(this.imageFile);
       let path = "/api/products";
       let formData = new FormData();
       formData.append("productName", this.productName);
@@ -63,6 +83,7 @@ export default {
       formData.append("productBrand", this.productBrand);
       formData.append("productBarcode", this.productBarcode);
       formData.append("productImage", this.imageFile);
+      formData.append("productExpiration", this.productExpiration);
       axiosPost(path, formData)
         .then((rs) => {
           console.log(rs);
@@ -76,6 +97,17 @@ export default {
       this.productBrand = "";
       this.productBarcode = "";
       this.productImage = null;
+      this.productExpiration = null;
+    },
+    getBrand() {
+      let path = "api/brands";
+      axiosGet(path)
+        .then((rs) => {
+          this.brands = rs.data.brands;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
   },
 };
