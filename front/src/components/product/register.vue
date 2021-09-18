@@ -11,7 +11,11 @@
       </div>
       <div>
         <label name="productBrand">브랜드</label>
-        <input type="text" name="productBrand" v-model="productBrand" />
+        <select name="productBrand" v-model="productBrand">
+          <option v-for="(brand, index) in brands" :value="brand.id" v-bind:key="index">
+            {{ brand.name }}
+          </option>
+        </select>
       </div>
       <div>
         <label name="productImage">이미지</label>
@@ -22,6 +26,10 @@
         <input type="text" name="productBarcode" v-model="productBarcode" />
       </div>
       <div>
+        <label name="productExpiration">유통기한</label>
+        <input type="date" name="productExpiration" v-model="productExpiration" />
+      </div>
+      <div>
         <input v-if="!isEdit" type="button" class="submitBtn" value="submit" @click="createProduct" />
         <input v-else type="button" class="submitBtn" value="update" @click="updateProduct" />
       </div>
@@ -29,7 +37,7 @@
   </div>
 </template>
 <script>
-import { axiosPost, axiosPut } from "@/api/axios.js"
+import { axiosPost, axiosGet, axiosPut } from '@/api/axios.js'
 
 export default {
   props: {
@@ -41,31 +49,36 @@ export default {
     editProductId: {
       type: String,
       required: false,
-      default: "",
+      default: '',
     },
   },
   data() {
     return {
-      productName: "",
-      productPrice: "",
-      productBrand: "",
-      productBarcode: "",
-      imageFile: "",
+      productName: '',
+      productPrice: '',
+      productBrand: '',
+      productBarcode: '',
+      productExpiration: '',
+      imageFile: '',
+      brands: '',
     }
+  },
+  created() {
+    this.getBrand()
   },
   methods: {
     setImage(e) {
       this.imageFile = e.target.files[0]
     },
     createProduct() {
-      console.log(this.imageFile)
-      let path = "/api/products"
+      let path = '/api/products'
       let formData = new FormData()
-      formData.append("productName", this.productName)
-      formData.append("productPrice", this.productPrice)
-      formData.append("productBrand", this.productBrand)
-      formData.append("productBarcode", this.productBarcode)
-      formData.append("productImage", this.imageFile)
+      formData.append('productName', this.productName)
+      formData.append('productPrice', this.productPrice)
+      formData.append('productBrand', this.productBrand)
+      formData.append('productBarcode', this.productBarcode)
+      formData.append('productImage', this.imageFile)
+      formData.append('productExpiration', this.productExpiration)
       axiosPost(path, formData)
         .then((rs) => {
           console.log(rs)
@@ -73,15 +86,25 @@ export default {
         .catch((e) => {
           console.log(e)
         })
-
-      this.productName = ""
-      this.productPrice = ""
-      this.productBrand = ""
-      this.productBarcode = ""
+      this.productName = ''
+      this.productPrice = ''
+      this.productBrand = ''
+      this.productBarcode = ''
       this.productImage = null
+      this.productExpiration = null
+    },
+    getBrand() {
+      let path = 'api/brands'
+      axiosGet(path)
+        .then((rs) => {
+          this.brands = rs.data.brands
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     },
     updateProduct() {
-      axiosPut("api/products", 1, {})
+      axiosPut('api/products', 1, {})
         .then((response) => {
           console.log(response)
         })

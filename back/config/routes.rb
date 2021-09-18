@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :api, { format: 'json' } do
     get 'role' => 'roles#index'
     resources :products, only: %i[index create update destroy]
-    get 'stock' => 'stocks#index'
-    get "brand" => "brands#index"
+    resources :brands, only: %i[index create update]
+    get 'stocks' => 'stocks#index'
   end
 end
