@@ -6,3 +6,9 @@ export const axiosGet = (path, param) => {
   const requestURL = "/" + path + (param ? "/" + param : "");
   return axios.get(requestURL);
 };
+
+export const axiosPost = (path, param) => {
+  console.log(param);
+  const requestURL = path;
+  return axios.post(requestURL, param);
+};
