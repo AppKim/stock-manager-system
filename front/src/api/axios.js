@@ -18,7 +18,6 @@ export const axiosPut = (path, id, param) => {
 }
 
 export const axiosDelete = (path, param) => {
-  console.log(param)
   const requestURL = '/' + path + (param ? '/' + param : '')
   return axios.delete(requestURL)
 }
