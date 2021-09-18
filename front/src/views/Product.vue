@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="flex flex-col">
     <div>
       <ProductSearch></ProductSearch>
     </div>
-    <div class="flex flex-1 h-full">
+    <div class="flex-1 flex">
       <ProductList @toggleEditProduct="toggleEditProduct"></ProductList>
       <ProductRegister :is-edit="isEdit" :edit-product-info="editProductInfo"></ProductRegister>
     </div>
