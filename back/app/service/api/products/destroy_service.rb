@@ -1,5 +1,5 @@
 module Api
-  module Product
+  module Products
     class DestroyService
       def initialize; end
 

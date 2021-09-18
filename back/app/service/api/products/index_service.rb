@@ -1,5 +1,5 @@
 module Api
-  module ProductServices
+  module Products
     class IndexService
       def initialize; end
 
@@ -21,7 +21,6 @@ module Api
         #   pr_expiration: 'expiration'
         # }
         @result = Product.all
-        p @result
       end
     end
   end
