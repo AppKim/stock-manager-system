@@ -8,7 +8,6 @@ export const axiosGet = (path, param) => {
 };
 
 export const axiosPost = (path, param) => {
-  console.log(param);
   const requestURL = path;
   return axios.post(requestURL, param);
 };
