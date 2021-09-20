@@ -13,9 +13,7 @@
         <Header @toggleBtnClick="toggleBtnClick" />
       </div>
       <div class="flex-1 flex">
-        <transition name="page">
-          <router-view class="flex-1" />
-        </transition>
+        <router-view class="flex-1" />
       </div>
       <div class="h-16">
         <Footer />
@@ -80,13 +78,13 @@ export default Vue.extend({
 .fade-leave-to {
   margin-left: -230px;
 }
-.page-enter-active,
+/* .page-enter-active,
 .page-leave-active {
-  transition: all 0.3s;
+  transition: all 0.15s;
 }
 .page-enter,
 .page-leave-to {
   opacity: 0;
-  transform: translateX(-10px);
-}
+  transform: translate(-100%);
+} */
 </style>

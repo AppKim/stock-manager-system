@@ -7,10 +7,11 @@
       <ProductList @toggleEditProduct="toggleEditProduct"></ProductList>
       <ProductEdit
         :brands="brands"
-        :is-edit="isEdit"
-        :edit-product-info="editProductInfo"
+        :on-update="onUpdate"
+        :update-product-info="updateProductInfo"
         @createProduct="createProduct"
         @updateProduct="updateProduct"
+        @convertToCreate="toggleEditProduct"
       ></ProductEdit>
     </div>
   </div>
@@ -25,8 +26,8 @@ export default Vue.extend({
   data() {
     return {
       brands: [],
-      isEdit: false,
-      editProductInfo: {},
+      onUpdate: false,
+      updateProductInfo: {},
     }
   },
   mounted() {
@@ -39,8 +40,8 @@ export default Vue.extend({
   },
   methods: {
     toggleEditProduct(item) {
-      this.isEdit = true
-      this.editProductInfo = item
+      this.onUpdate = !this.onUpdate
+      if (item) this.updateProductInfo = item
     },
     createProduct(formData) {
       axiosPost('/api/products', formData)
@@ -52,7 +53,7 @@ export default Vue.extend({
         })
     },
     updateProduct(formData) {
-      axiosPut('api/products', this.editProductInfo.pr_id, formData)
+      axiosPut('api/products', this.updateProductInfo.pr_id, formData)
         .then((response) => {
           console.log(response)
         })
@@ -60,7 +61,6 @@ export default Vue.extend({
           console.log(error)
         })
     },
-
     getBrand() {
       axiosGet('api/brands')
         .then((rs) => {

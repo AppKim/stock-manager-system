@@ -13,15 +13,11 @@
         <input type="text" placeholder="Email" />
         <input type="text" placeholder="Username" />
         <input type="password" placeholder="Password" />
-        <button
-          class="w-full h-12 text-white bg-primary rounded-full hover:bg-dark"
-        >
+        <button class="w-full h-12 text-white bg-primary rounded-full hover:bg-dark">
           <span>Sign Up</span>
         </button>
         <div class="w-full text-center">
-          <router-link to="/Login">
-            Already have an account? Sign in ->
-          </router-link>
+          <router-link to="/Login"> Already have an account? Sign in -> </router-link>
         </div>
       </section>
     </div>
@@ -29,8 +25,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-export default Vue.extend({});
+import Vue from 'vue'
+export default Vue.extend({})
 </script>
 
 <style scoped>
@@ -46,7 +42,6 @@ input {
 input:focus {
   outline: none;
   border: none;
-  box-shadow: var(--tw-ring-inset) 0 0 0 calc(4px + var(--tw-ring-offset-width))
-    var(--tw-ring-color);
+  box-shadow: var(--tw-ring-inset) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color);
 }
 </style>
