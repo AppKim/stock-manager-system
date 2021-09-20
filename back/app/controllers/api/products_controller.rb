@@ -1,15 +1,24 @@
 module Api
   class ProductsController < ApplicationController
     def index
-      service = Api::Product::IndexService.new
+      service = Api::Products::IndexService.new
       @result = service.execute
     end
 
     def create
-      p "image:#{params[:productImage].original_filename}"
-      File.binwrite("public/product_images/#{params[:productImage].original_filename}", params[:productImage].read)
-      service = Api::Product::CreateService.new(params)
+      service = Api::Products::CreateService.new(params)
       service.execute
+    end
+
+    def update
+      service = Api::Products::UpdateService.new
+      @result = service.execute(params)
+    end
+
+    def destroy
+      @product = Product.find(params[:id])
+      service = Api::Products::DestroyService.new
+      @result = service.execute(params)
     end
   end
 end
