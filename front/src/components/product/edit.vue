@@ -58,10 +58,12 @@
   </div>
 </template>
 <script>
-import { axiosPost, axiosGet, axiosPut } from '@/api/axios.js'
-
 export default {
   props: {
+    brands: {
+      type: Array,
+      required: true,
+    },
     isEdit: {
       type: Boolean,
       required: true,
@@ -79,7 +81,6 @@ export default {
       productBarcode: '',
       productExpiration: '',
       imageFile: '',
-      brands: '',
     }
   },
   computed: {
@@ -97,15 +98,12 @@ export default {
       this.imageFile = item.pr_img
     },
   },
-  created() {
-    this.getBrand()
-  },
+
   methods: {
     setImage(e) {
       this.imageFile = e.target.files[0]
     },
     createProduct() {
-      let path = '/api/products'
       let formData = new FormData()
       formData.append('productName', this.productName)
       formData.append('productPrice', this.productPrice)
@@ -113,13 +111,8 @@ export default {
       formData.append('productBarcode', this.productBarcode)
       formData.append('productImage', this.imageFile)
       formData.append('productExpiration', this.productExpiration)
-      axiosPost(path, formData)
-        .then((rs) => {
-          console.log(rs)
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+      this.$emit('createProduct', formData)
+      // :TODO add loading
       this.productName = ''
       this.productPrice = ''
       this.productBrand = ''
@@ -127,16 +120,7 @@ export default {
       this.productImage = null
       this.productExpiration = null
     },
-    getBrand() {
-      let path = 'api/brands'
-      axiosGet(path)
-        .then((rs) => {
-          this.brands = rs.data.brands
-        })
-        .catch((e) => {
-          console.log(e)
-        })
-    },
+
     updateProduct() {
       let formData = new FormData()
       formData.append('productName', this.productName)
@@ -145,13 +129,7 @@ export default {
       formData.append('productBarcode', this.productBarcode)
       formData.append('productImage', this.imageFile)
       formData.append('productExpiration', this.productExpiration)
-      axiosPut('api/products', this.editProductInfo.pr_id, formData)
-        .then((response) => {
-          console.log(response)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      this.$emit('updateProduct', formData)
     },
   },
 }
