@@ -30,7 +30,7 @@
       </div>
       <div>
         <label name="productImage">이미지</label>
-        <input type="file" name="image" accept="image/png,image/jpeg" @change="setImage" />
+        <input ref="image" type="file" name="productImage" accept="image/png,image/jpeg" @change="setImage" />
       </div>
       <div>
         <label name="productBarcode">바코드</label>
@@ -117,8 +117,9 @@ export default {
       this.productPrice = ''
       this.productBrand = ''
       this.productBarcode = ''
-      this.productImage = null
-      this.productExpiration = null
+      this.imageFile = ''
+      this.productExpiration = ''
+      this.$refs.image.value = ''
     },
 
     updateProduct() {

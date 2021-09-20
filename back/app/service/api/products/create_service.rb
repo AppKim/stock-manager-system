@@ -13,9 +13,7 @@ module Api
 
       attr_reader :params
       def add_product
-        if params[:productImage].present?
-          image_url = "public/product_images/#{params[:productImage].original_filename}"
-        end
+        image_url = upload_image
         ApplicationRecord.transaction do
           product = Product.new(
             pr_us_id: 1,
@@ -35,7 +33,9 @@ module Api
       end
 
       def upload_image
-        File.binwrite("public/product_images/#{image_url}", params[:productImage].read)
+        image_url = params[:productImage].present? ? "public/product_images/#{params[:productImage].original_filename}" : ''
+        File.binwrite(image_url, params[:productImage].read) if image_url.present?
+        image_url
       end
     end
   end
