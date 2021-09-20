@@ -1,63 +1,85 @@
 <template>
-  <div class="bg-white h-full w-full">
-    <div class="produc-table">
-      <table>
-        <thead>
-          <th>상품ID</th>
-          <th>카테고리명</th>
-          <th>브랜드</th>
-          <th>가격</th>
-          <th>바코드정보</th>
-          <th>상품이미지</th>
-          <th>유통기한정보</th>
-          <th>등록자</th>
-        </thead>
-        <tbody v-for="(item, index) in items" :key="index">
-          <th>{{ item.pr_id }}</th>
-          <th>{{ item.pr_ca_id }}</th>
-          <th>{{ item.pr_br_id }}</th>
-          <th>{{ item.pr_price }}</th>
-          <th>{{ item.pr_barcode }}</th>
-          <th>{{ item.pr_img }}</th>
-          <th>{{ item.pr_expiration }}</th>
-          <th>{{ item.pr_us_id }}</th>
-        </tbody>
-      </table>
-    </div>
+  <div class="bg-white w-full h-full">
+    <table>
+      <thead class="h-10 bg-tableColor-bg border-b border-tableColor-border whitespace-nowrap">
+        <th class="text-xs text-center text-tableColor-text px-2">상품ID</th>
+        <th class="text-xs text-center text-tableColor-text px-2">카테고리명</th>
+        <th class="text-xs text-center text-tableColor-text px-2">브랜드</th>
+        <th class="text-xs text-center text-tableColor-text px-2">가격</th>
+        <th class="text-xs text-center text-tableColor-text px-2">바코드정보</th>
+        <th class="text-xs text-center text-tableColor-text px-2">상품이미지</th>
+        <th class="text-xs text-center text-tableColor-text px-2">유통기한정보</th>
+        <th class="text-xs text-center text-tableColor-text px-2">등록자</th>
+        <th class="text-xs text-center text-tableColor-text px-2">편집 / 삭제</th>
+      </thead>
+      <tbody
+        class="py-2.5 h-12 border-b border-tableColor-border whitespace-nowrap"
+        v-for="(item, index) in items"
+        :key="index"
+      >
+        <td class="px-2">{{ item.pr_id }}</td>
+        <td class="px-2">{{ item.pr_ca_id }}</td>
+        <td class="px-2">{{ item.pr_br_id }}</td>
+        <td class="px-2">{{ item.pr_price }}</td>
+        <td class="px-2">{{ item.pr_barcode }}</td>
+        <td>
+          <img class="max-w-none px-2 py-1" width="100px" src="http://picsum.photos/100" />
+        </td>
+        <td class="px-2">{{ item.pr_expiration }}</td>
+        <td class="px-2">{{ item.pr_us_id }}</td>
+        <td class="space-x-1">
+          <button
+            @click="$emit('toggleEditProduct', item)"
+            class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700"
+          >
+            편집
+          </button>
+          <button
+            @click="deleteProduct(item.pr_id, index)"
+            class="px-2 py-1 bg-red-500 text-xs rounded-md text-white hover:bg-red-700"
+          >
+            삭제
+          </button>
+        </td>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { axiosGet } from "@/api/axios.js";
+import Vue from 'vue'
+import { axiosGet, axiosDelete } from '@/api/axios.js'
 
 export default Vue.extend({
-  name: "Product",
+  name: 'Product',
   data() {
     return {
       items: [],
-    };
+    }
   },
   created() {
-    this.getProduct();
+    this.getProduct()
   },
   methods: {
     getProduct() {
-      axiosGet("api/products")
+      axiosGet('api/products')
         .then((rs) => {
-          this.items.push(rs.data);
+          this.items = rs.data.results
         })
         .catch((e) => {
-          console.log(e);
-        });
+          console.log(e)
+        })
+    },
+    deleteProduct(pr_id: string, index: number): void {
+      axiosDelete('api/products', pr_id)
+        .then((response) => {
+          console.log(response)
+          this.items.splice(index, 1)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     },
   },
-});
+})
 </script>
-<style scoped>
-table,
-th,
-td {
-  border: 1px solid black;
-}
-</style>
