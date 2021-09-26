@@ -75,10 +75,4 @@ export default Vue.extend({
   },
 })
 </script>
-<style scoped>
-table,
-th,
-td {
-  border: 1px solid black;
-}
-</style>
+
