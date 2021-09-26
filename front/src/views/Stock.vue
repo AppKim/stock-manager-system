@@ -11,14 +11,15 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue from 'vue'
+import { axiosPost, axiosGet, axiosPut } from '@/api/axios.js'
 
 export default Vue.extend({
-  name: "Stock",
+  name: 'Stock',
   components: {
-    StockList: () => import("@/components/stock/list.vue"),
-    StockRegister: () => import("@/components/stock/register.vue"),
-    StockSearch: () => import("@/components/stock/search.vue"),
+    StockList: () => import('@/components/stock/list.vue'),
+    StockRegister: () => import('@/components/stock/register.vue'),
+    StockSearch: () => import('@/components/stock/search.vue'),
   },
-});
+})
 </script>
