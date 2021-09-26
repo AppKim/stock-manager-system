@@ -54,7 +54,7 @@ export default Vue.extend({
   },
   methods: {
     getStock() {
-      axiosGet('api/stock')
+      axiosGet('api/stocks')
         .then((rs) => {
           console.log('★★★log★★★' + JSON.stringify(rs.data))
           rs.data.forEach((element: any) => {
