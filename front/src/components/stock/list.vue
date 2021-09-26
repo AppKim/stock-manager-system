@@ -18,7 +18,7 @@
       >
         <td class="px-2">{{ item.st_pr_id }}</td>
         <td class="px-2">{{ item.pr_ca_id }}</td>
-        <td class="px-2">{{ item.pr_br_id }}</td>
+        <td class="px-2">{{ item.br_name }}</td>
         <td class="px-2">{{ item.pr_price }}</td>
         <td class="px-2">{{ item.pr_expiration }}</td>
         <td class="px-2">{{ item.count }}</td>
@@ -61,7 +61,7 @@ export default Vue.extend({
             this.data.items.push({
               st_pr_id: element.st_pr_id,
               pr_ca_id: element.pr_ca_id,
-              pr_br_id: element.pr_br_id,
+              br_name: element.br_name,
               pr_price: element.pr_price,
               pr_expiration: element.pr_expiration,
               count: element.count,
