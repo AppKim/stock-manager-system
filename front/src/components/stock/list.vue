@@ -3,25 +3,25 @@
     <!-- suji -->
     <table>
       <thead class="h-10 bg-tableColor-bg border-b border-tableColor-border whitespace-nowrap">
-        <th class="text-xs text-center text-tableColor-text px-2">상품재고ID</th>
-        <th class="text-xs text-center text-tableColor-text px-2">카테고리ID</th>
-        <th class="text-xs text-center text-tableColor-text px-2">브랜드</th>
-        <th class="text-xs text-center text-tableColor-text px-2">가격</th>
-        <th class="text-xs text-center text-tableColor-text px-2">유통기한정보</th>
-        <th class="text-xs text-center text-tableColor-text px-2">수량</th>
-        <th class="text-xs text-center text-tableColor-text px-2">수정</th>
+        <th class="text-xs text-center text-tableColor-text px-6">상품재고ID</th>
+        <th class="text-xs text-center text-tableColor-text px-6">카테고리ID</th>
+        <th class="text-xs text-center text-tableColor-text px-6">브랜드</th>
+        <th class="text-xs text-center text-tableColor-text px-6">가격</th>
+        <th class="text-xs text-center text-tableColor-text px-6">유통기한정보</th>
+        <th class="text-xs text-center text-tableColor-text px-6">수량</th>
+        <th class="text-xs text-center text-tableColor-text px-6">수정</th>
       </thead>
       <tbody
         class="py-2.5 h-12 border-b border-tableColor-border whitespace-nowrap"
         v-for="item in this.data.items"
         v-bind:key="item.id"
       >
-        <td class="px-2">{{ item.st_pr_id }}</td>
-        <td class="px-2">{{ item.pr_ca_id }}</td>
-        <td class="px-2">{{ item.br_name }}</td>
-        <td class="px-2">{{ item.pr_price }}</td>
-        <td class="px-2">{{ item.pr_expiration }}</td>
-        <td class="px-2">{{ item.count }}</td>
+        <td class="px-6">{{ item.st_pr_id }}</td>
+        <td class="px-6">{{ item.pr_ca_id }}</td>
+        <td class="px-6">{{ item.br_name }}</td>
+        <td class="px-6">{{ item.pr_price }}</td>
+        <td class="px-6">{{ item.pr_expiration }}</td>
+        <td class="px-6">{{ item.count }}</td>
         <td class="space-x-1">
           <button
             @click="$emit('toggleEditStock', item)"
