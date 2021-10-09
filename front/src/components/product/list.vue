@@ -51,25 +51,17 @@ import Vue from 'vue'
 import { axiosGet, axiosDelete } from '@/api/axios.js'
 
 export default Vue.extend({
-  name: 'Product',
+  name: "Product",
+  props: ['items'],
   data() {
     return {
-      items: [],
+    
     }
   },
   created() {
     this.getProduct()
   },
   methods: {
-    getProduct() {
-      axiosGet('api/products')
-        .then((rs) => {
-          this.items = rs.data.results
-        })
-        .catch((e) => {
-          console.log(e)
-        })
-    },
     deleteProduct(pr_id: string, index: number): void {
       axiosDelete('api/products', pr_id)
         .then((response) => {

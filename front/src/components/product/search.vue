@@ -14,6 +14,9 @@
 </template>
 
 <script>
+import EventBus from '../common/eventBus/event-bus';
+import ListComponent from '../product/list.vue';
+
 export default {
   data(){
     return {
@@ -22,10 +25,11 @@ export default {
   },
   methods: {
     toList () {
+      this.$emit('setInput',this.searchContent);
       this.searchContent = '';
+      
     }
-  }
-
+  },
 };
 
 
