@@ -62,7 +62,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { axiosGet } from "@/api/axios.js";
+import { axiosGet } from "../../api/axios.js";
 
 export default Vue.extend({
   name: "Stock",

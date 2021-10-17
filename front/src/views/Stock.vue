@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="flex flex-col">
     <div>
-      <StockSearch></StockSearch>
+      <StockSearch v-on:search-options="search"></StockSearch>
     </div>
-    <div class="flex h-full">
+    <div class="flex-1 flex">
       <StockList></StockList>
       <StockRegister></StockRegister>
     </div>
@@ -12,13 +12,19 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { SeacrhFn } from "../components/stock/services/stock-service";
+import { SearchParams } from "../components/stock/services/stock-interface"
 
 export default Vue.extend({
   name: "Stock",
   components: {
-    StockList: () => import("@/components/stock/list.vue"),
-    StockRegister: () => import("@/components/stock/register.vue"),
-    StockSearch: () => import("@/components/stock/search.vue"),
-  },
+    StockList: () => import("../components/stock/list.vue"),
+    StockRegister: () => import("../components/stock/register.vue"),
+    StockSearch: () => import("../components/stock/search.vue"),
+  }, methods: {
+      search(param: SearchParams) {
+        SeacrhFn(param);
+      }
+    }
 });
 </script>

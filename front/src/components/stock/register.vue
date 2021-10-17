@@ -1,4 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
 <template >
   <div v-if="type">
     <div id = "app" class="bg-green-300 h-full w-full">
