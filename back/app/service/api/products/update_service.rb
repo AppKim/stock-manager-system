@@ -1,8 +1,6 @@
 module Api
   module Products
     class UpdateService
-      attr_reader :params
-
       def initialize(params)
         @params = params
       end
@@ -11,12 +9,15 @@ module Api
         update_product
       end
 
+      private
+      
+      attr_reader :params
+
       def check_update_image(old_image_url)
         new_image_url = params[:productImage].present? ? "public/product_images/#{params[:productImage].original_filename}" : ''
-        p new_image_url
         if new_image_url != old_image_url
-          # 등록된 이미지가 있다면 삭제
           if old_image_url.present?
+            # 등록된 이미지가 있다면 삭제
             File.delete(old_image_url)
           end
           File.binwrite(new_image_url, params[:productImage].read)
