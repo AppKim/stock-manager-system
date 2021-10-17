@@ -39,9 +39,16 @@ export default Vue.extend({
     ProductSearch: () => import('@/components/product/search.vue'),
   },
   methods: {
+    /**
+     * @param item 편집할 아이템정보
+     */
     toggleEditProduct(item) {
-      this.onUpdate = !this.onUpdate
-      if (item) this.updateProductInfo = item
+      if (item) {
+        this.updateProductInfo = item
+        this.onUpdate = true
+      } else {
+        this.onUpdate = false
+      }
     },
     createProduct(formData) {
       axiosPost('/api/products', formData)
