@@ -7,7 +7,6 @@
         <th class="text-xs text-center text-tableColor-text px-6">카테고리ID</th>
         <th class="text-xs text-center text-tableColor-text px-6">브랜드</th>
         <th class="text-xs text-center text-tableColor-text px-6">가격</th>
-        <th class="text-xs text-center text-tableColor-text px-6">유통기한정보</th>
         <th class="text-xs text-center text-tableColor-text px-6">수량</th>
         <th class="text-xs text-center text-tableColor-text px-6">수정</th>
       </thead>
@@ -20,7 +19,6 @@
         <td class="px-6">{{ item.pr_ca_id }}</td>
         <td class="px-6">{{ item.br_name }}</td>
         <td class="px-6">{{ item.pr_price }}</td>
-        <td class="px-6">{{ item.pr_expiration }}</td>
         <td class="px-6">{{ item.count }}</td>
         <td class="space-x-1">
           <button
@@ -63,7 +61,6 @@ export default Vue.extend({
               pr_ca_id: element.pr_ca_id,
               br_name: element.br_name,
               pr_price: element.pr_price,
-              pr_expiration: element.pr_expiration,
               count: element.count,
             })
           })
