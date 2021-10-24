@@ -21,10 +21,10 @@ export default Vue.extend({
     return {
       brandNameCondition: [],
       expirationCondition: [],
-      brandList: {
-        brands: [],
-        type: true,
-      },
+      // brandList: {
+      //   brands: [],
+      //   type: true,
+      // },
       stockCount: [],
     }
   },
@@ -36,15 +36,18 @@ export default Vue.extend({
   methods: {
     //List.vue에서 받은 내용으로 조건설정
     showdetails(item) {
-      console.log('★★★selectDetails★★★' + item.br_name)
+      console.log('★★★showdetails★★★')
       this.brandNameCondition = item.br_name
-      this.expirationCondition = item.pr_expiration
       this.stockProductIdCondition = item.st_pr_id
       this.productCategoryCondition = item.pr_ca_id
+      console.log('brandNameCondition' + this.brandNameCondition)
+      console.log('stockProductIdCondition' + this.stockProductIdCondition)
+      console.log('productCategoryCondition' + this.productCategoryCondition)
+
       //조건이 딸린 axiosGet으로 select해와야됨
     },
-    viewDetails(item) {
-      console.log('★★★viewDetails★★★' + item.br_name)
+    viewDetails(formData) {
+      console.log('★★★viewDetails★★★')
       this.brandList = item.br_name
     },
   },
