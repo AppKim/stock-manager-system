@@ -12,8 +12,7 @@ module Api
             def get_stock_list
                  @result = Stock.joins(product: :brand)
                  .select(
-                'stocks.st_id, 
-                 stocks.st_pr_id, 
+                'stocks.st_pr_id, 
                  products.pr_ca_id, 
                  brands.br_name, 
                  products.pr_price, 
