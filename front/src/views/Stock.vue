@@ -5,7 +5,7 @@
       <StockSearch></StockSearch>
     </div>
     <div class="flex h-full">
-      <StockList @selectDetails="selectDetails"></StockList>
+      <StockList @showetails="showetails"></StockList>
       <StockRegister :brandList="brandList" @viewDetails="viewDetails"></StockRegister>
     </div>
   </div>
