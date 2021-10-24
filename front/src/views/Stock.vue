@@ -5,7 +5,7 @@
       <StockSearch></StockSearch>
     </div>
     <div class="flex h-full">
-      <StockList @showetails="showetails"></StockList>
+      <StockList @showdetails="showdetails"></StockList>
       <StockRegister :brandList="brandList" @viewDetails="viewDetails"></StockRegister>
     </div>
   </div>
@@ -35,7 +35,7 @@ export default Vue.extend({
   },
   methods: {
     //List.vue에서 받은 내용으로 조건설정
-    showetails(item) {
+    showdetails(item) {
       console.log('★★★selectDetails★★★' + item.br_name)
       this.brandNameCondition = item.br_name
       this.expirationCondition = item.pr_expiration
