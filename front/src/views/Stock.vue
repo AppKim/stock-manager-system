@@ -1,3 +1,4 @@
+<!--親コンポーネント-->
 <template>
   <div class="flex flex-col">
     <div>
@@ -16,7 +17,18 @@ import { SeacrhFn } from "../components/stock/services/stock-service";
 import { SearchParams } from "../components/stock/services/stock-interface"
 
 export default Vue.extend({
-  name: "Stock",
+  name: 'Stock',
+  data() {
+    return {
+      brandNameCondition: [],
+      expirationCondition: [],
+      brandList: {
+        brands: [],
+        type: true,
+      },
+      stockCount: [],
+    }
+  },
   components: {
     StockList: () => import("../components/stock/list.vue"),
     StockRegister: () => import("../components/stock/register.vue"),

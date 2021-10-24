@@ -7,5 +7,16 @@ module Api
             # @result = Stock.joins(:product).select('stocks.* , products.*')
             @result = service.execute
         end
+
+        def create
+            service = Api::StockServices::CreateService.new(params)
+            service.execute
+        end
+
+        def detail
+            service = Api::StockServices::DetailService.new
+            @result = service.execute(params)
+          end
+
     end
 end
