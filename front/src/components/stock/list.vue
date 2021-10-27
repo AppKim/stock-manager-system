@@ -22,7 +22,7 @@
         <td class="px-6">{{ item.count }}</td>
         <td class="space-x-1">
           <button
-            @click="$emit('showDetails', item)"
+            @click="$emit('showdetails', item)"
             class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700"
           >
             OK
