@@ -42,7 +42,7 @@ export default Vue.extend({
       console.log('★★★showdetails★★★')
       this.item = item
       //조건이 딸린 axiosGet으로 select해와야됨
-      axiosGet('api/stock/detail', item)
+      axiosGet('api/stocks/detail', item)
         .then((rs) => {
           console.log('★★★showdetailsResult★★★')
           rs.data.forEach((element: any) => {
