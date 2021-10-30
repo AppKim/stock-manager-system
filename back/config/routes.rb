@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     resources :products, only: %i[index create update destroy]
     resources :brands, only: %i[index create update]
     resources :stocks, only: %i[index create detail]
+    get 'stocks/search' => 'stocks#search'
   end
 end
