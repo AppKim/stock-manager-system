@@ -15,7 +15,7 @@
 import Vue from 'vue'
 import { SeacrhFn } from '../components/stock/services/stock-service'
 import { SearchParams } from '../components/stock/interface/stock-interface'
-import { axiosPost, axiosGet, axiosPut } from '@/api/axios.js'
+import { axiosPost, axiosGet, axiosPut, axiosGetByCond } from '@/api/axios.js'
 
 export default Vue.extend({
   name: 'Stock',
@@ -36,15 +36,15 @@ export default Vue.extend({
     // 검색 기능
     search(param: SearchParams) {
       SeacrhFn(param)
-      .then(result => console.log('result', result.data))
-      .catch(err => err);
+        .then((result) => console.log('result', result.data))
+        .catch((err) => err)
     },
     // List.vue에서 받은 내용으로 조건설정
     showdetails(item) {
       console.log('★★★showdetails★★★')
       this.item = item
       //조건이 딸린 axiosGet으로 select해와야됨
-      axiosGet('api/stocks/detail', item)
+      axiosGetByCond('api/stock/detail', item)
         .then((rs) => {
           console.log('★★★showdetailsResult★★★')
           rs.data.forEach((element: any) => {
