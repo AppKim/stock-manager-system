@@ -14,7 +14,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { SeacrhFn } from '../components/stock/services/stock-service'
-import { SearchParams } from '../components/stock/services/stock-interface'
+import { SearchParams } from '../components/stock/interface/stock-interface'
 import { axiosPost, axiosGet, axiosPut } from '@/api/axios.js'
 
 export default Vue.extend({
@@ -36,6 +36,8 @@ export default Vue.extend({
     // 검색 기능
     search(param: SearchParams) {
       SeacrhFn(param)
+      .then(result => console.log('result', result.data))
+      .catch(err => err);
     },
     // List.vue에서 받은 내용으로 조건설정
     showdetails(item) {

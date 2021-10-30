@@ -1,7 +1,12 @@
-import { axiosGet } from '../../../api/axios'
-import { StockURLs } from './stock-url.enum'
-import { SearchParams } from './stock-interface';
+import axios from 'axios'
+
+import { StockURLs } from '../enum/stock.enum'
+import { SearchParams } from '../interface/stock-interface';
+
+
+axios.defaults.baseURL = 'http://localhost:3000/'
 
 export const SeacrhFn = async (param: SearchParams) => {
-    return await axiosGet(StockURLs.searchUrl, param);
- }
+    return await axios
+        .get(StockURLs.searchUrl, { params: param });
+}
