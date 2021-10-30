@@ -20,8 +20,7 @@ module Api
 
         def search
             service = Api::StockServices::SearchService.new(params)
-            p params
-            @result = params
+            @result = service.execute
             # @result = service.execute(params)
         end
 

@@ -6,7 +6,7 @@ module Api
             end
             
             def execute
-                serach_stock(:params)
+                serach_stock
             end
 
             private
@@ -18,6 +18,13 @@ module Api
                  brands.br_name, 
                  products.pr_price, 
                  count(stocks.st_pr_id) as count')
+                 .where(
+                    case @params[:type]
+                        when "0" then st_pr_id = @params[:query]
+                        when "1" then pr_ca_id = @params[:query]
+                        when "2" then br_name = @params[:query]
+                    end
+                 )
                  .group('stocks.st_pr_id')
             end
         end
