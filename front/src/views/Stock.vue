@@ -6,7 +6,7 @@
     </div>
     <div class="flex h-full">
       <StockList @showdetails="showdetails"></StockList>
-      <StockRegister :brandList="brandList" @viewDetails="viewDetails"></StockRegister>
+      <StockRegister :brandList="items" @viewDetails="viewDetails"></StockRegister>
     </div>
   </div>
 </template>
@@ -19,13 +19,10 @@ export default Vue.extend({
   name: 'Stock',
   data() {
     return {
-      brandNameCondition: [],
-      expirationCondition: [],
-      // brandList: {
-      //   brands: [],
-      //   type: true,
-      // },
-      stockCount: [],
+      data: {
+        items: [],
+        type: true,
+      },
     }
   },
   components: {
@@ -37,18 +34,24 @@ export default Vue.extend({
     //List.vue에서 받은 내용으로 조건설정
     showdetails(item) {
       console.log('★★★showdetails★★★')
-      this.brandNameCondition = item.br_name
-      this.stockProductIdCondition = item.st_pr_id
-      this.productCategoryCondition = item.pr_ca_id
-      console.log('brandNameCondition' + this.brandNameCondition)
-      console.log('stockProductIdCondition' + this.stockProductIdCondition)
-      console.log('productCategoryCondition' + this.productCategoryCondition)
-
+      this.item = item
       //조건이 딸린 axiosGet으로 select해와야됨
-    },
-    viewDetails(formData) {
-      console.log('★★★viewDetails★★★')
-      this.brandList = item.br_name
+      axiosGet('api/stock/detail', item)
+        .then((rs) => {
+          console.log('★★★showdetailsResult★★★')
+          rs.data.forEach((element: any) => {
+            this.data.items.push({
+              st_pr_id: element.st_pr_id,
+              pr_ca_id: element.pr_ca_id,
+              br_name: element.br_name,
+              pr_price: element.pr_price,
+              count: element.count,
+            })
+          })
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     },
   },
 })
