@@ -1,6 +1,7 @@
 <template>
   <div class="bg-white w-full h-full">
-    <table>
+    <Loading v-if="isLoading" />
+    <table v-else>
       <thead class="h-10 bg-tableColor-bg border-b border-tableColor-border whitespace-nowrap">
         <th class="text-xs text-center text-tableColor-text px-2">상품ID</th>
         <th class="text-xs text-center text-tableColor-text px-2">카테고리명</th>
@@ -58,6 +59,7 @@ export default Vue.extend({
     }
   },
   created() {
+    this.isLoading = true
     this.getProduct()
   },
   methods: {
@@ -65,6 +67,7 @@ export default Vue.extend({
       axiosGet('api/products')
         .then((rs) => {
           this.items = rs.data.results
+          this.isLoading = false
         })
         .catch((e) => {
           console.log(e)
