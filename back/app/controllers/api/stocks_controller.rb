@@ -14,8 +14,8 @@ module Api
         end
 
         def detail
-            service = Api::StockServices::DetailService.new
-            @result = service.execute(params)
+            service = Api::StockServices::DetailService.new(params)
+            @result = service.execute
           end
 
     end
