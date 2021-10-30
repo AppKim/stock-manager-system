@@ -22,12 +22,9 @@ module Api
       @result = service.execute(params)
     end
 
-    def show 
-      # service = Api::Products::SearchService.new
-      # @result = service.execute
-      @products = Product.find(params[:id])
-      p @products
+    def show
+      service = Api::Products::SearchService.new(params)
+      @products = service.execute
     end
-
   end
 end

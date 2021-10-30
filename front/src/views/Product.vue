@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <ProductSearch @setInput='setInput'></ProductSearch>
+      <ProductSearch @setInput='setInput' @setCategory='setCategory'></ProductSearch>
     </div>
     <div class="flex h-full">
-      <ProductList :items='items'></ProductList>
+      <ProductList v-bind:items='items' :search='search'></ProductList>
       <ProductRegister></ProductRegister>
 
     </div>
@@ -14,6 +14,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { axiosGet } from "@/api/axios.js";
+import axios from 'axios'
 
 export default Vue.extend({
   name: "Product",
@@ -21,6 +22,7 @@ export default Vue.extend({
     return {
       searchItem: [],
       items: [],
+      search: [],
     }
   },
   created() {
@@ -32,11 +34,16 @@ export default Vue.extend({
     ProductSearch: () => import("@/components/product/search.vue"),
   },
   methods: {
-    setInput(value) {
-      this.searchItem = value;
-      console.log(value);
-      axiosGet("api/products", this.searchItem) 
-        .then((rs) => {
+    setInput(searchItems, searchContent) {
+      console.log(searchItems, searchContent);
+      axios.get("api/products/search", {
+        params:{
+          searchItems,
+          searchContent
+        }
+        // axios 파일에 위에 메소드 추가하기 
+      }).then((rs) => {
+          this.items = rs.data.results;
             console.log(rs);
         })
        .catch((e) => {

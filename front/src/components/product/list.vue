@@ -12,11 +12,8 @@
         <th class="text-xs text-center text-tableColor-text px-2">등록자</th>
         <th class="text-xs text-center text-tableColor-text px-2">편집 / 삭제</th>
       </thead>
-      <tbody
-        class="py-2.5 h-12 border-b border-tableColor-border whitespace-nowrap"
-        v-for="(item, index) in items"
-        :key="index"
-      >
+      <!-- <div v-if="search.length == 0"> -->
+      <tbody class="py-2.5 h-12 border-b border-tableColor-border whitespace-nowrap" v-for="(item, index) in items" :key="index">
         <td class="px-2">{{ item.pr_id }}</td>
         <td class="px-2">{{ item.pr_ca_id }}</td>
         <td class="px-2">{{ item.pr_br_id }}</td>
@@ -42,8 +39,38 @@
           </button>
         </td>
       </tbody>
+      <!-- </div> -->
+      <!-- 검색 결과 리스트 출력 -->
+      <!-- <div v-else-if="search.length > 0"> 
+        <tbody class="py-2.5 h-12 border-b border-tableColor-border whitespace-nowrap" v-for="(item, index) in search" :key="index">
+        <td class="px-2">{{ item.pr_id }}</td>
+        <td class="px-2">{{ item.pr_ca_id }}</td>
+        <td class="px-2">{{ item.pr_br_id }}</td>
+        <td class="px-2">{{ item.pr_price }}</td>
+        <td class="px-2">{{ item.pr_barcode }}</td>
+         <td>
+          <img class="max-w-none px-2 py-1" width="100px" src="http://picsum.photos/100" />
+        </td>
+         <td class="px-2">{{ item.pr_expiration }}</td>
+        <td class="px-2">{{ item.pr_us_id }}</td>
+        <td class="space-x-1">
+          <button
+            @click="$emit('toggleEditProduct', item)"
+            class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700"
+          >
+            편집
+          </button>
+          <button
+            @click="deleteProduct(item.pr_id, index)"
+            class="px-2 py-1 bg-red-500 text-xs rounded-md text-white hover:bg-red-700"
+          >
+            삭제
+          </button>
+        </td>
+        </tbody>
+      </div> -->
     </table>
-  </div>
+    </div>
 </template>
 
 <script lang="ts">
@@ -52,7 +79,7 @@ import { axiosGet, axiosDelete } from '@/api/axios.js'
 
 export default Vue.extend({
   name: "Product",
-  props: ['items'],
+  props: ['items', 'search'], 
   data() {
     return {
     
