@@ -30,7 +30,7 @@
       </div>
       <div>
         <label name="productImage">이미지</label>
-        <input type="file" name="image" accept="image/png,image/jpeg" @change="setImage" />
+        <input ref="image" type="file" name="productImage" accept="image/png,image/jpeg" @change="setImage" />
       </div>
       <div>
         <label name="productBarcode">바코드</label>
@@ -50,23 +50,45 @@
           v-model="productExpiration"
         />
       </div>
-      <div>
-        <input v-if="!isEdit" type="button" class="submitBtn" value="submit" @click="createProduct" />
-        <input v-else type="button" class="submitBtn" value="update" @click="updateProduct" />
-      </div>
     </section>
+    <div class="m-2">
+      <div v-if="onUpdate" class="flex justify-between">
+        <input
+          type="button"
+          class="px-4 py-2 hover:opacity-50 cursor-pointer rounded-md text-white bg-green-500"
+          :value="title"
+          @click="updateProduct"
+        />
+        <input
+          type="button"
+          class="px-4 py-2 hover:opacity-50 cursor-pointer rounded-md text-white bg-gray-500"
+          value="상품등록으로"
+          @click="$emit('convertToCreate'), init()"
+        />
+      </div>
+      <input
+        v-else
+        type="button"
+        class="px-4 py-2 hover:opacity-50 cursor-pointer rounded-md text-white bg-primary"
+        :value="title"
+        @click="createProduct"
+      />
+    </div>
   </div>
 </template>
-<script>
-import { axiosPost, axiosGet, axiosPut } from '@/api/axios.js'
-
-export default {
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
   props: {
-    isEdit: {
+    brands: {
+      type: Array,
+      required: true,
+    },
+    onUpdate: {
       type: Boolean,
       required: true,
     },
-    editProductInfo: {
+    updateProductInfo: {
       type: Object,
       required: true,
     },
@@ -79,16 +101,15 @@ export default {
       productBarcode: '',
       productExpiration: '',
       imageFile: '',
-      brands: '',
     }
   },
   computed: {
     title() {
-      return this.isEdit ? '상품편집' : '상품등록'
+      return this.onUpdate ? '상품수정' : '상품등록'
     },
   },
   watch: {
-    editProductInfo(item) {
+    updateProductInfo(item) {
       this.productName = item.pr_name
       this.productPrice = item.pr_price
       this.productBrand = item.pr_br_id
@@ -97,15 +118,22 @@ export default {
       this.imageFile = item.pr_img
     },
   },
-  created() {
-    this.getBrand()
-  },
+
   methods: {
-    setImage(e) {
+    setImage(e): void {
       this.imageFile = e.target.files[0]
     },
     createProduct() {
-      let path = '/api/products'
+      this.$emit('createProduct', this.createFormData())
+      // :TODO add loading
+    },
+
+    updateProduct() {
+      this.$emit('updateProduct', this.createFormData())
+      // :TODO add loading
+    },
+
+    createFormData(): FormData {
       let formData = new FormData()
       formData.append('productName', this.productName)
       formData.append('productPrice', this.productPrice)
@@ -113,48 +141,20 @@ export default {
       formData.append('productBarcode', this.productBarcode)
       formData.append('productImage', this.imageFile)
       formData.append('productExpiration', this.productExpiration)
-      axiosPost(path, formData)
-        .then((rs) => {
-          console.log(rs)
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+      return formData
+    },
+
+    init() {
       this.productName = ''
       this.productPrice = ''
       this.productBrand = ''
       this.productBarcode = ''
-      this.productImage = null
-      this.productExpiration = null
-    },
-    getBrand() {
-      let path = 'api/brands'
-      axiosGet(path)
-        .then((rs) => {
-          this.brands = rs.data.brands
-        })
-        .catch((e) => {
-          console.log(e)
-        })
-    },
-    updateProduct() {
-      let formData = new FormData()
-      formData.append('productName', this.productName)
-      formData.append('productPrice', this.productPrice)
-      formData.append('productBrand', this.productBrand)
-      formData.append('productBarcode', this.productBarcode)
-      formData.append('productImage', this.imageFile)
-      formData.append('productExpiration', this.productExpiration)
-      axiosPut('api/products', this.editProductInfo.pr_id, formData)
-        .then((response) => {
-          console.log(response)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      this.imageFile = ''
+      this.productExpiration = ''
+      this.$refs.image.value = ''
     },
   },
-}
+})
 </script>
 <style scoped>
 li {

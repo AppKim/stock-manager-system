@@ -1,6 +1,7 @@
 <template>
   <div class="bg-white w-full h-full">
-    <table>
+    <Loading v-if="isLoading" />
+    <table v-else>
       <thead class="h-10 bg-tableColor-bg border-b border-tableColor-border whitespace-nowrap">
         <th class="text-xs text-center text-tableColor-text px-2">상품ID</th>
         <th class="text-xs text-center text-tableColor-text px-2">카테고리명</th>
@@ -13,7 +14,11 @@
         <th class="text-xs text-center text-tableColor-text px-2">편집 / 삭제</th>
       </thead>
       <!-- <div v-if="search.length == 0"> -->
-      <tbody class="py-2.5 h-12 border-b border-tableColor-border whitespace-nowrap" v-for="(item, index) in items" :key="index">
+      <tbody
+        class="py-2.5 h-12 border-b border-tableColor-border whitespace-nowrap"
+        v-for="(item, index) in items"
+        :key="index"
+      >
         <td class="px-2">{{ item.pr_id }}</td>
         <td class="px-2">{{ item.pr_ca_id }}</td>
         <td class="px-2">{{ item.pr_br_id }}</td>
@@ -70,7 +75,7 @@
         </tbody>
       </div> -->
     </table>
-    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -78,17 +83,26 @@ import Vue from 'vue'
 import { axiosGet, axiosDelete } from '@/api/axios.js'
 
 export default Vue.extend({
-  name: "Product",
-  props: ['items', 'search'], 
+  name: 'Product',
+  props: ['items', 'search'],
   data() {
-    return {
-    
-    }
+    return {}
   },
   created() {
+    this.isLoading = true
     this.getProduct()
   },
   methods: {
+    getProduct() {
+      axiosGet('api/products')
+        .then((rs) => {
+          this.items = rs.data.results
+          this.isLoading = false
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
     deleteProduct(pr_id: string, index: number): void {
       axiosDelete('api/products', pr_id)
         .then((response) => {

@@ -12,12 +12,11 @@ module Api
     end
 
     def update
-      service = Api::Products::UpdateService.new
-      @result = service.execute(params)
+      service = Api::Products::UpdateService.new(params)
+      @result = service.execute
     end
 
     def destroy
-      @product = Product.find(params[:id])
       service = Api::Products::DestroyService.new
       @result = service.execute(params)
     end

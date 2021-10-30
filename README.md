@@ -75,6 +75,8 @@ github などから初めてローカルに持ってきた場合は以下の手�
 ```bash
 $ docker-compose run web rails db:create
 $ docker-compose run front npm install（できない人はLocalでnpm installを行う。）
+$ docker-compose run web rake db:migrate
+$ docker-compose run web rake db:seed_fu
 $ docker-compose up
 ```
 
