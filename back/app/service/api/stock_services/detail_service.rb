@@ -1,7 +1,8 @@
 module Api
     module StockServices
         class DetailService
-            def initialize
+            def initialize(params)
+                @params = params
             end
             
             def execute
@@ -9,10 +10,7 @@ module Api
             end
 
             private
-            def get_stock_detail(param)
-                p params[:st_id]
-                p params[:st_pr_id]
-                p params[:pr_expiration]
+            def get_stock_detail
                 @result = Stock.joins(product: :brand)
                 .select(
                 'stocks.st_pr_id, 
@@ -22,9 +20,8 @@ module Api
                 products.pr_expiration, 
                 count(stocks.st_pr_id) as count')
                 .where(stocks.st_id: params[:st_id] 
-                        and stocks.st_pr_id:params[:st_pr_id]
-                        and products.pr_expiration: params[:pr_expiration])
-                .group('stocks.st_pr_id')
+                        ,stocks.st_pr_id: params[:st_pr_id])
+                .group('products.pr_expiration')
             end
         end
     end
