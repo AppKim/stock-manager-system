@@ -1,65 +1,51 @@
 <template>
-  <div class="bg-white-500 h-full w-full">
-    <select name="list" class="searchList">
+  <div class="bg-white-500 h-full w-full mb-1">
+    <select class="border border-blue-500 border-solid rounded h-12 cursor-pointer" name="list" v-model="type">
       <option value="product">상품명</option>
-      <option value="product">브랜드</option>
-      <option value="product">카테고리</option>
-      <option value="product">등록자</option>
+      <option value="brand">브랜드</option>
+      <option value="category">카테고리</option>
+      <option value="owner">등록자</option>
     </select>
-    <input class="searchBar" type="text" value="" placeholder="Search" v-model="searchContent" @keyup.enter="toList" />
 
-    <button class="submitBtn" @click="toList">검색</button>
+    <input
+      class="ml-4 mr-14 bg-white w-2/3 h-12 rounded border border-blue-500 border-solid"
+      type="text"
+      placeholder="Search"
+      v-model="query"
+      @keyup.enter="getList"
+    />
+
+    <button
+      class="
+        border border-blue-500 border-solid
+        rounded
+        h-12
+        cursor-pointer
+        bg-blue-500
+        w-40
+        text-lg text-white
+        hover:bg-white hover:text-blue-300 hover:shadow-none
+      "
+      @click="getList">
+      검색
+    </button>
   </div>
 </template>
 
-<script>
+<style scoped></style>
+
+<script lang="ts">
 export default {
   data() {
     return {
-      searchContent: '',
+      type: 'product',
+      query: '',
     }
   },
   methods: {
-    toList() {
-      this.searchContent = ''
-    },
+    getList() {
+      this.$emit('search-options', {type: this.type, query: this.query});
+    }
   },
 }
 </script>
-
-<style scoped>
-.searchBar {
-  margin-left: 20px;
-  margin-bottom: 20px;
-  background: #ffffff;
-  border: 1px solid dodgerblue;
-  border-style: groove;
-  border-radius: 5px;
-  width: 70%;
-  height: 50px;
-}
-
-.searchList {
-  border: 1px solid dodgerblue;
-  border-radius: 5px;
-  height: 50px;
-  cursor: pointer;
-}
-
-.submitBtn {
-  margin-left: 30px;
-  background-color: dodgerblue;
-  font-size: 18px;
-  color: white;
-  width: 120px;
-  height: 50px;
-  cursor: pointer;
-  border-radius: 10px;
-}
-
-.submitBtn:hover {
-  box-shadow: none;
-  color: #000066;
-  background: #ffffff;
-}
-</style>

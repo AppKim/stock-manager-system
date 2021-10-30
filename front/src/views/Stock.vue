@@ -1,8 +1,8 @@
 <!--親コンポーネント-->
 <template>
-  <div>
+  <div class="flex flex-col">
     <div>
-      <StockSearch></StockSearch>
+      <StockSearch v-on:search-options="search"></StockSearch>
     </div>
     <div class="flex h-full">
       <StockList @showdetails="showdetails"></StockList>
@@ -13,7 +13,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { axiosPost, axiosGet, axiosPut } from '@/api/axios.js'
+import { SeacrhFn } from '../components/stock/services/stock-service'
+import { SearchParams } from '../components/stock/services/stock-interface'
 
 export default Vue.extend({
   name: 'Stock',
@@ -26,12 +27,16 @@ export default Vue.extend({
     }
   },
   components: {
-    StockList: () => import('@/components/stock/list.vue'),
-    StockRegister: () => import('@/components/stock/register.vue'),
-    StockSearch: () => import('@/components/stock/search.vue'),
+    StockList: () => import('../components/stock/list.vue'),
+    StockRegister: () => import('../components/stock/register.vue'),
+    StockSearch: () => import('../components/stock/search.vue'),
   },
   methods: {
-    //List.vue에서 받은 내용으로 조건설정
+    // 검색 기능
+    search(param: SearchParams) {
+      SeacrhFn(param)
+    },
+    // List.vue에서 받은 내용으로 조건설정
     showdetails(item) {
       console.log('★★★showdetails★★★')
       this.item = item
@@ -52,6 +57,10 @@ export default Vue.extend({
         .catch((e) => {
           console.log(e)
         })
+    },
+    viewDetails(formData) {
+      console.log('★★★viewDetails★★★')
+      // this.brandList = item.br_name
     },
   },
 })
