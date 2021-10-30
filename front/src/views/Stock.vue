@@ -15,6 +15,7 @@
 import Vue from 'vue'
 import { SeacrhFn } from '../components/stock/services/stock-service'
 import { SearchParams } from '../components/stock/services/stock-interface'
+import { axiosPost, axiosGet, axiosPut } from '@/api/axios.js'
 
 export default Vue.extend({
   name: 'Stock',
