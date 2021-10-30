@@ -19,8 +19,8 @@ module Api
                 products.pr_price,
                 products.pr_expiration, 
                 count(stocks.st_pr_id) as count')
-                .where(stocks.st_id: params[:st_id] 
-                        ,stocks.st_pr_id: params[:st_pr_id])
+                .where(st_id: params[:st_id] 
+                        ,st_pr_id: params[:st_pr_id])
                 .group('products.pr_expiration')
             end
         end
