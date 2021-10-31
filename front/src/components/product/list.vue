@@ -20,8 +20,8 @@
         :key="index"
       >
         <td class="px-2">{{ item.pr_id }}</td>
-        <td class="px-2">{{ item.pr_ca_id }}</td>
-        <td class="px-2">{{ item.pr_br_id }}</td>
+        <td class="px-2">{{ item.ca_name }}</td>
+        <td class="px-2">{{ item.br_name }}</td>
         <td class="px-2">{{ item.pr_price }}</td>
         <td class="px-2">{{ item.pr_barcode }}</td>
         <td>
@@ -97,6 +97,7 @@ export default Vue.extend({
       axiosGet('api/products')
         .then((rs) => {
           this.items = rs.data.results
+          console.log(rs.data.results)
           this.isLoading = false
         })
         .catch((e) => {
