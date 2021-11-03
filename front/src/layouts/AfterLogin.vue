@@ -24,16 +24,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import SideBar from '@/components/common/SideBar.vue'
-import Header from '@/components/common/Header.vue'
-import Footer from '@/components/common/Footer.vue'
 
 export default Vue.extend({
   name: 'AfterLogin',
   components: {
-    Header,
-    Footer,
-    SideBar,
+    SideBar: () => import('@/components/common/SideBar.vue'),
+    Header: () => import('@/components/common/Header.vue'),
+    Footer: () => import('@/components/common/Footer.vue'),
   },
   data() {
     return {
