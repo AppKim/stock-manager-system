@@ -15,15 +15,14 @@ module Api
             def get_stock_detail
                 @result = Stock.joins(product: :brand)
                 .select(
-                'stocks.st_pr_id, 
+                'products.pr_name, 
                 products.pr_ca_id, 
                 brands.br_name, 
                 products.pr_price,
                 products.pr_expiration, 
                 count(stocks.st_pr_id) as count')
-                .where(st_id: params[:st_id])
                 .where(st_pr_id: params[:st_pr_id])
-                .group('products.pr_expiration')
+                .group('stocks.st_pr_id')
             end
         end
     end
