@@ -7,6 +7,11 @@ export const axiosGet = (path, param) => {
   return axios.get(requestURL)
 }
 
+export const axiosGetByCond = (path, param) => {
+  const requestURL = path
+  return axios.get(requestURL, param)
+}
+
 export const axiosPost = (path, param) => {
   const requestURL = path
   return axios.post(requestURL, param)
