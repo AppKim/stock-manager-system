@@ -21,7 +21,10 @@
         <td class="px-6">{{ item.pr_price }}</td>
         <td class="px-6">{{ item.count }}</td>
         <td class="space-x-1">
-          <button class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700" @click="showdetails">
+          <button
+            class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700"
+            @click="$emit('showdetails', item.st_pr_id)"
+          >
             OK
           </button>
         </td>
@@ -66,17 +69,17 @@ export default Vue.extend({
           console.log(e)
         })
     },
-    showdetails() {
-      this.$emit('showdetails', this.createCond())
-    },
-    createCond(): FormData {
-      let cond = new FormData()
-      cond.append('st_pr_id', this.st_pr_id)
-      console.log('★★★createCond★★★')
-      console.log('★★★this.st_pr_id★★★' + this.st_pr_id)
-      console.log('★★★cond★★★' + cond)
-      return cond
-    },
+    // showdetails() {
+    //   this.$emit('showdetails', this.createCond())
+    // },
+    // createCond(): FormData {
+    //   let cond = new FormData()
+    //   cond.append('st_pr_id', this.items.st_pr_id)
+    //   console.log('★★★createCond★★★')
+    //   console.log('★★★this.items.st_pr_id★★★' + this.items.st_pr_id)
+    //   console.log('★★★cond★★★' + cond)
+    //   return cond
+    // },
   },
 })
 </script>
