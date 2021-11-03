@@ -20,7 +20,7 @@ module Api
         #   pr_img: 'img',
         #   pr_expiration: 'expiration'
         # }
-        @result = Product.all
+        @result = Product.joins(:brand, :category).select('*')
       end
     end
   end

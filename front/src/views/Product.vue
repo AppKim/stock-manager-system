@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col">
+  <div>
     <div>
-      <ProductSearch></ProductSearch>
+      <ProductSearch @setInput="setInput" @setCategory="setCategory"></ProductSearch>
     </div>
     <div class="flex-1 flex">
-      <ProductList @toggleEditProduct="toggleEditProduct"></ProductList>
+      <ProductList v-bind:items="items" :search="search" @toggleEditProduct="toggleEditProduct"></ProductList>
       <ProductEdit
         :brands="brands"
         :on-update="onUpdate"
@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios'
 import Vue from 'vue'
 import { axiosPost, axiosGet, axiosPut } from '@/api/axios.js'
 
@@ -25,6 +26,9 @@ export default Vue.extend({
   name: 'Product',
   data() {
     return {
+      searchItem: [],
+      items: [],
+      search: [],
       brands: [],
       onUpdate: false,
       updateProductInfo: {},
@@ -72,6 +76,34 @@ export default Vue.extend({
       axiosGet('api/brands')
         .then((rs) => {
           this.brands = rs.data.brands
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
+    getProduct() {
+      axiosGet('api/products')
+        .then((rs) => {
+          this.items = rs.data.results
+          console.log(rs)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
+    setInput(searchItems, searchContent) {
+      console.log(searchItems, searchContent)
+      axios
+        .get('api/products/search', {
+          params: {
+            searchItems,
+            searchContent,
+          },
+          // axios 파일에 위에 메소드 추가하기
+        })
+        .then((rs) => {
+          this.items = rs.data.results
+          console.log(rs)
         })
         .catch((e) => {
           console.log(e)

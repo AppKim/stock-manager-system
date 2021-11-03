@@ -3,6 +3,7 @@ module Api
     def index
       service = Api::Products::IndexService.new
       @result = service.execute
+      p @result
     end
 
     def create
@@ -23,6 +24,11 @@ module Api
     def destroy
       service = Api::Products::DestroyService.new
       @result = service.execute(params)
+    end
+
+    def show
+      service = Api::Products::SearchService.new(params)
+      @products = service.execute
     end
   end
 end
