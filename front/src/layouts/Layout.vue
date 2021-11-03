@@ -3,23 +3,21 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import AfterLogin from "@/layouts/AfterLogin.vue";
-import BeforeLogin from "@/layouts/BeforeLogin.vue";
+import Vue from 'vue'
 
 export default Vue.extend({
-  name: "Layout",
+  name: 'Layout',
   components: {
-    AfterLogin,
-    BeforeLogin,
+    AfterLogin: () => import('@/layouts/AfterLogin.vue'),
+    BeforeLogin: () => import('@/layouts/BeforeLogin.vue'),
   },
   computed: {
     // Default layout은 AfterLogin으로!
     layout() {
-      return this.$route.meta?.layout || "AfterLogin";
+      return this.$route.meta?.layout || 'AfterLogin'
     },
   },
-});
+})
 </script>
 
 <style></style>
