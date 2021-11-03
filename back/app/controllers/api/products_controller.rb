@@ -7,7 +7,12 @@ module Api
 
     def create
       service = Api::Products::CreateService.new(params)
-      service.execute
+      @result = service.execute
+      if @result['message'].present?
+        render json: @result['message'], status: :unprocessable_entity
+      else
+        render json: { message: 'created' }, status: :created
+      end
     end
 
     def update
