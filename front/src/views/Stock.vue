@@ -40,10 +40,10 @@ export default Vue.extend({
         .catch((err) => err)
     },
     // List.vue에서 받은 내용으로 조건설정
-    showdetails(item) {
-      console.log('★★★showdetails★★★' + item)
+    showdetails(cond) {
+      console.log('★★★showdetails★★★' + cond)
       //조건이 딸린 axiosGet으로 select해와야됨
-      axiosGetByCond('api/stock/detail', item)
+      axiosGetByCond('api/stock/detail', cond)
         .then((rs) => {
           rs.data.forEach((element: any) => {
             this.data.items.push({

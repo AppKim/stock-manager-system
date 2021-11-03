@@ -72,6 +72,9 @@ export default Vue.extend({
     createCond(): FormData {
       let cond = new FormData()
       cond.append('st_pr_id', this.st_pr_id)
+      console.log('★★★createCond★★★')
+      console.log('★★★this.st_pr_id★★★' + this.st_pr_id)
+      console.log('★★★cond★★★' + cond)
       return cond
     },
   },
