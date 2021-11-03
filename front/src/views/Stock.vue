@@ -41,18 +41,17 @@ export default Vue.extend({
     },
     // List.vue에서 받은 내용으로 조건설정
     showdetails(item) {
-      console.log('★★★showdetails★★★')
-      this.item = item
+      console.log('★★★showdetails★★★' + item)
       //조건이 딸린 axiosGet으로 select해와야됨
       axiosGetByCond('api/stock/detail', item)
         .then((rs) => {
-          console.log('★★★showdetailsResult★★★')
           rs.data.forEach((element: any) => {
             this.data.items.push({
-              st_pr_id: element.st_pr_id,
+              pr_name: element.pr_name,
               pr_ca_id: element.pr_ca_id,
               br_name: element.br_name,
               pr_price: element.pr_price,
+              pr_expiration: element.pr_expiration,
               count: element.count,
             })
           })
