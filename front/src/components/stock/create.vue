@@ -27,7 +27,7 @@
           type="button"
           class="px-4 py-2 hover:opacity-50 cursor-pointer rounded-md text-white bg-green-500"
           value="등록"
-          @click="createProduct"
+          @click="createStock"
         />
         <button class="px-4 py-2 hover:opacity-50 cursor-pointer rounded-md text-white bg-gray-500">취소</button>
       </div>
@@ -45,10 +45,6 @@ export default Vue.extend({
       type: Array,
       required: true,
     },
-    products: {
-      type: Array,
-      required: true,
-    }
   },
   data() {
     return {
