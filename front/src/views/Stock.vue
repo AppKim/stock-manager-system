@@ -45,8 +45,9 @@ export default Vue.extend({
         .catch((err) => err)
     },
     // List.vue에서 받은 내용으로 조건설정
-    showdetails(cond) {
-      console.log('★★★showdetails★★★' + cond)
+    showdetails(cond: string, flg: boolean) {
+      console.log('★★★showdetails★★★' + cond + ',' + flg)
+      this.isCreate = flg
       //조건이 딸린 axiosGet으로 select해와야됨
       axiosGetByCond('api/stock/detail', {
         params: {
