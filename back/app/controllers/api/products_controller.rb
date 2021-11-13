@@ -27,8 +27,13 @@ module Api
     end
 
     def destroy
-      service = Api::Products::DestroyService.new
-      @result = service.execute(params)
+      service = Api::Products::DestroyService.new(params)
+      @result = service.execute
+      if(@result == true)
+        render json: { message: 'ok' }, status: :ok
+      else
+        render json: @result, status: :gone
+      end
     end
 
     def show
