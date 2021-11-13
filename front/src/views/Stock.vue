@@ -43,7 +43,11 @@ export default Vue.extend({
     showdetails(cond) {
       console.log('★★★showdetails★★★' + cond)
       //조건이 딸린 axiosGet으로 select해와야됨
-      axiosGetByCond('api/stock/detail', cond)
+      axiosGetByCond('api/stock/detail', {
+        params: {
+          st_pr_id: cond,
+        },
+      })
         .then((rs) => {
           rs.data.forEach((element: any) => {
             this.data.items.push({
