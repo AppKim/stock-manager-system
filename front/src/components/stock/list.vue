@@ -23,10 +23,8 @@
         <td class="space-x-1">
           <button
             class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700"
-            
-            @click="$emit('changeEdit',this.isCreate)"
+            @click="$emit('showdetails', item.st_pr_id, this.iscreate)"
           >
-          <!-- @click="$emit('showdetails', item.st_pr_id)" -->
             OK
           </button>
         </td>
@@ -41,52 +39,22 @@ import { axiosGet } from '@/api/axios.js'
 
 export default Vue.extend({
   name: 'Stock',
+  props: {
+    items: [],
+  },
   data() {
     return {
       data: {
         items: [],
+        type: true,
       },
-      isCreate:false
+      isCreate: false,
     }
   },
   created() {
-    this.getStock()
+    this.$emit('showlist')
   },
-  methods: {
-    getStock() {
-      axiosGet('api/stocks')
-        .then((rs) => {
-          console.log('★★★log★★★' + JSON.stringify(rs.data))
-          rs.data.forEach((element: any) => {
-            this.data.items.push({
-              st_pr_id: element.st_pr_id,
-              pr_ca_id: element.pr_ca_id,
-              br_name: element.br_name,
-              pr_price: element.pr_price,
-              count: element.count,
-            })
-          })
-        })
-        .catch((e) => {
-          console.log(e)
-        })
-    },
-    changeEdit(){
-      console.log("자식 컴포넌트"+this.isCreate)
-      this.$emit("changeEdit", this.isCreate)
-    }
-    // showdetails() {
-    //   this.$emit('showdetails', this.createCond())
-    // },
-    // createCond(): FormData {
-    //   let cond = new FormData()
-    //   cond.append('st_pr_id', this.items.st_pr_id)
-    //   console.log('★★★createCond★★★')
-    //   console.log('★★★this.items.st_pr_id★★★' + this.items.st_pr_id)
-    //   console.log('★★★cond★★★' + cond)
-    //   return cond
-    // },
-  },
+  methods: {},
 })
 </script>
 
