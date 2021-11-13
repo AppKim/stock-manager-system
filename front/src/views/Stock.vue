@@ -8,7 +8,7 @@
       <StockSearch v-on:search-options="search"></StockSearch>
     </div>
     <div class="flex h-full">
-      <StockList @showdetails="showdetails"></StockList>
+      <StockList @showlist="showlist" @showdetails="showdetails"></StockList>
       <StockCreate v-if="isCreate" :brandList="items"></StockCreate>
       <StockEdit @changeEdit="setEdit" v-else @viewDetails="viewDetails"></StockEdit>
     </div>
@@ -27,6 +27,7 @@ export default Vue.extend({
     return {
       data: {
         items: [],
+        type: true,
       },
       isCreate: false,
     }
@@ -38,6 +39,25 @@ export default Vue.extend({
     StockSearch: () => import('../components/stock/search.vue'),
   },
   methods: {
+    //리스트 화면표시
+    showlist() {
+      axiosGet('api/stocks')
+        .then((rs) => {
+          console.log('★★★log★★★' + JSON.stringify(rs.data))
+          rs.data.forEach((element: any) => {
+            this.data.items.push({
+              st_pr_id: element.st_pr_id,
+              pr_ca_id: element.pr_ca_id,
+              br_name: element.br_name,
+              pr_price: element.pr_price,
+              count: element.count,
+            })
+          })
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
     // 검색 기능
     search(param: SearchParams) {
       SeacrhFn(param)
