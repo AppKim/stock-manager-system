@@ -3,11 +3,10 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Layout from "@/layouts/Layout.vue";
+import Vue from 'vue'
 export default Vue.extend({
-  components: { Layout },
-});
+  components: { Layout: () => import('@/layouts/Layout.vue') },
+})
 </script>
 
 <style></style>

@@ -3,15 +3,18 @@ module Api
     class CreateService
       def initialize(params)
         @params = params
+        @result = {}
       end
 
       def execute
         add_product
+        result
       end
 
       private
 
-      attr_reader :params
+      attr_reader :params, :result
+
       def add_product
         image_url = upload_image
         ApplicationRecord.transaction do
@@ -28,6 +31,7 @@ module Api
           product.save!
         end
       rescue StandardError => e
+        result.store('message', e.message)
         Rails.logger.error(e.message)
         Rails.logger.error(e.backtrace.join("\n"))
       end
