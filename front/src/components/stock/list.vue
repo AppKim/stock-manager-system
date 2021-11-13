@@ -22,9 +22,11 @@
         <td class="px-6">{{ item.count }}</td>
         <td class="space-x-1">
           <button
-            @click="$emit('showdetails', item)"
             class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700"
+            
+            @click="$emit('changeEdit',this.isCreate)"
           >
+          <!-- @click="$emit('showdetails', item.st_pr_id)" -->
             OK
           </button>
         </td>
@@ -34,8 +36,8 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { axiosGet } from "../../api/axios.js";
+import Vue from 'vue'
+import { axiosGet } from '@/api/axios.js'
 
 export default Vue.extend({
   name: 'Stock',
@@ -43,8 +45,8 @@ export default Vue.extend({
     return {
       data: {
         items: [],
-        type: true,
       },
+      isCreate:false
     }
   },
   created() {
@@ -69,6 +71,21 @@ export default Vue.extend({
           console.log(e)
         })
     },
+    changeEdit(){
+      console.log("자식 컴포넌트"+this.isCreate)
+      this.$emit("changeEdit", this.isCreate)
+    }
+    // showdetails() {
+    //   this.$emit('showdetails', this.createCond())
+    // },
+    // createCond(): FormData {
+    //   let cond = new FormData()
+    //   cond.append('st_pr_id', this.items.st_pr_id)
+    //   console.log('★★★createCond★★★')
+    //   console.log('★★★this.items.st_pr_id★★★' + this.items.st_pr_id)
+    //   console.log('★★★cond★★★' + cond)
+    //   return cond
+    // },
   },
 })
 </script>

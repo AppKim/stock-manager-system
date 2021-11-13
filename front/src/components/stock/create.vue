@@ -27,51 +27,12 @@
           type="button"
           class="px-4 py-2 hover:opacity-50 cursor-pointer rounded-md text-white bg-green-500"
           value="등록"
-          @click="createProduct"
+          @click="createStock"
         />
         <button class="px-4 py-2 hover:opacity-50 cursor-pointer rounded-md text-white bg-gray-500">취소</button>
       </div>
     </section>
   </div>
-
-  <!-- <div v-else>
-    <h1>ELSE</h1>
-    <h4>{{ typela.type }}</h4>
-    <div id = "app" class="bg-green-300 h-full w-full">
-      <section class="flex flex-col space-y-2">
-        <h1>Detail &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button @click="disabled = !disabled" class="button">활성화</button></h1>
-        <div>
-          <label name="expiration">유통기한 :</label>
-          <input type="date" id="start" name="trip-start" value="2021-08-29" :disabled="disabled">
-        </div>
-        <div>
-          <label name="stockId">제품명:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <select name="stocks" id="stocks-select" :disabled="disabled">
-              <option v-for="( brand, i ) in brandList" :key="i">{{ brand }}</option>
-            </select>
-        </div>
-        <div>
-          <label name="brandId">브랜드명 :</label>
-            <select name="brands" id="brands-select" :disabled="disabled">
-              <option v-for="( brand, i ) in brandList" :key="i">{{ brand }}</option>
-            </select>
-        </div>
-        <div>
-          <label name="stockCount">수량:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-          <input type="text" name="stockCount" v-model="stockCount" :disabled="disabled"/>
-        </div>
-        <div>
-          <input
-            type="button"
-            class="submitBtn"
-            value="등록"
-            @click="inputStock"
-          />
-          <button class="submitBtn" id="cancelStock">취소</button>
-        </div>
-      </section>
-    </div>
-  </div> -->
 </template>
 
 
@@ -84,10 +45,6 @@ export default Vue.extend({
       type: Array,
       required: true,
     },
-    products: {
-      type: Array,
-      required: true,
-    }
   },
   data() {
     return {
