@@ -1,12 +1,14 @@
 <!--親コンポーネント-->
 <template>
   <div class="flex flex-col">
+    <button class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700" @click="setCreate()">등록</button>
     <div>
       <StockSearch v-on:search-options="search"></StockSearch>
     </div>
     <div class="flex h-full">
       <StockList @showdetails="showdetails"></StockList>
-      <StockRegister :brandList="items" @viewDetails="viewDetails"></StockRegister>
+      <StockCreate v-if="isCreate" :brandList="items"></StockCreate>
+      <StockEdit @changeEdit="setEdit" v-else @viewDetails="viewDetails"></StockEdit>
     </div>
   </div>
 </template>
@@ -23,13 +25,14 @@ export default Vue.extend({
     return {
       data: {
         items: [],
-        type: true,
       },
+      isCreate: false
     }
   },
   components: {
     StockList: () => import('../components/stock/list.vue'),
-    StockRegister: () => import('../components/stock/register.vue'),
+    StockCreate: () => import('../components/stock/create.vue'),
+    StockEdit: () => import('../components/stock/edit.vue'),
     StockSearch: () => import('../components/stock/search.vue'),
   },
   methods: {
@@ -68,6 +71,12 @@ export default Vue.extend({
       console.log('★★★viewDetails★★★')
       // this.brandList = item.br_name
     },
+    setCreate(){
+      this.isCreate = true
+    },
+    setEdit(inputValue){
+      this.isCreate = inputValue
+    }
   },
 })
 </script>
