@@ -19,7 +19,7 @@
 import Vue from 'vue'
 import { SeacrhFn } from '../components/stock/services/stock-service'
 import { SearchParams } from '../components/stock/interface/stock-interface'
-import { axiosPost, axiosGet, axiosPut, axiosGetByCond } from '@/api/axios.js'
+import { axiosGetByCond } from '../api/axios.js'
 
 export default Vue.extend({
   name: 'Stock',
@@ -61,8 +61,8 @@ export default Vue.extend({
     // 검색 기능
     search(param: SearchParams) {
       SeacrhFn(param)
-        .then((result) => console.log('result', result.data))
-        .catch((err) => err)
+        .then((result) => console.log('result', result))
+        .catch((e: Error) => console.error(`${e.name.concat('검색 에러: 통신 에러')}\n ${e.stack}`))
     },
     // List.vue에서 받은 내용으로 조건설정
     showdetails(cond: string, flg: boolean) {
