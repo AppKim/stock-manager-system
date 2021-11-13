@@ -13,7 +13,7 @@ module Api
             def serach_stock
                 key = case @params[:type]
                     when "0" then "stocks.st_pr_id = ?"
-                    when "1" then "product.pr_ca_id = ?"
+                    when "1" then "products.pr_ca_id = ?"
                     when "2" then "brands.br_name = ?"
                 end
 
