@@ -1,12 +1,25 @@
 module Api
   module Products
     class DestroyService
-      def initialize; end
+      attr_reader :params
 
-      def execute(params)
-        p params[:id]
-        @product = Product.find(params[:id])
-        @product.destroy
+      def initialize(params)
+        @params = params
+      end
+
+      def execute
+        delete_product
+      end
+
+      def delete_product
+        ApplicationRecord.transaction do
+          @product = Product.find(params[:id])
+          # https://edgeapi.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-destroy-21
+          @product == @product.destroy!
+        rescue StandardError => e
+          Rails.logger.error(e.message)
+          e.message
+        end
       end
 
     end
