@@ -19,6 +19,11 @@ module Api
     def update
       service = Api::Products::UpdateService.new(params)
       @result = service.execute
+      if(@result == true)
+        render json: { message: 'ok' }, status: :ok
+      else
+        render json: @result, status: :precondition_failed
+      end
     end
 
     def destroy
