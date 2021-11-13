@@ -12,7 +12,7 @@
       </thead>
       <tbody
         class="py-2.5 h-12 border-b border-tableColor-border whitespace-nowrap"
-        v-for="item in this.data.items"
+        v-for="item in this.items"
         v-bind:key="item.id"
       >
         <td class="px-6">{{ item.st_pr_id }}</td>
@@ -35,7 +35,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { axiosGet } from '@/api/axios.js'
 
 export default Vue.extend({
   name: 'Stock',
@@ -55,4 +54,3 @@ export default Vue.extend({
   methods: {},
 })
 </script>
-

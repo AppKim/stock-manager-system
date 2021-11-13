@@ -5,10 +5,10 @@
       등록
     </button>
     <div>
-      <StockSearch v-on:search-options="search"></StockSearch>
+      <StockSearch v-on:request-search="search"></StockSearch>
     </div>
     <div class="flex h-full">
-      <StockList @showlist="showlist" :items="items" @showdetails="showdetails"></StockList>
+      <StockList @showlist="showlist" :items="data.items" @showdetails="showdetails"></StockList>
       <StockCreate v-if="isCreate" :brandList="items"></StockCreate>
       <StockEdit @changeEdit="setEdit" v-else @viewDetails="viewDetails"></StockEdit>
     </div>
@@ -20,14 +20,14 @@ import Vue from 'vue'
 import { SeacrhFn } from '../components/stock/services/stock-service'
 import { SearchParams } from '../components/stock/interface/stock-interface'
 import { axiosGetByCond } from '../api/axios.js'
-import { axiosGet } from '@/api/axios.js'
+import { axiosGet } from '../api/axios.js'
 
 export default Vue.extend({
   name: 'Stock',
   data() {
     return {
       data: {
-        items: Array,
+        items: [],
         type: true,
       },
       isCreate: false,
@@ -62,7 +62,10 @@ export default Vue.extend({
     // 검색 기능
     search(param: SearchParams) {
       SeacrhFn(param)
-        .then((result) => console.log('result', result))
+        .then((result) => result.data)
+        .then((data) => {
+          this.data.items = data
+        })
         .catch((e: Error) => console.error(`${e.name.concat('검색 에러: 통신 에러')}\n ${e.stack}`))
     },
     // List.vue에서 받은 내용으로 조건설정
