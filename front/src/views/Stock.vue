@@ -8,7 +8,7 @@
       <StockSearch v-on:search-options="search"></StockSearch>
     </div>
     <div class="flex h-full">
-      <StockList @showlist="showlist" v-bind:items="items" @showdetails="showdetails"></StockList>
+      <StockList @showlist="showlist" @showdetails="showdetails"></StockList>
       <StockCreate v-if="isCreate" :brandList="items"></StockCreate>
       <StockEdit @changeEdit="setEdit" v-else @viewDetails="viewDetails"></StockEdit>
     </div>
