@@ -6,19 +6,38 @@
       <option value="3">카테고리</option>
       <option value="4">등록자</option>
     </select>
-    <select name="list" class="searchList" v-model="searchItems">
+    <select id="categoryList" name="list" class="searchList" v-model="searchItems">
       <option value="5">카테고리</option>
     </select>
-    <input class="searchBar" type="text" value="" placeholder="Search" v-model="searchContent" @keyup.enter="toList" />
-
-    <button class="submitBtn" @click="toList">검색</button>
+      <span class="text-area">브랜드</span>
+      <input type="search" id="search-Menu" list="brands">
+      <datalist id="brands">
+      <option value="jinro"></option>
+      <option value="jinro"></option>
+     </datalist>
+      <span class="text-area">카테고리</span>
+      <input type="search" id="search-Menu" list="category">
+      <datalist id="category">
+      <option value="Drink"></option>
+      <option value="Drink"></option>
+     </datalist>
+    <div class="serch-area">
+    <input class="searchBar" type="text"
+    placeholder="검색어를 입력해 주세요" v-model="searchContent" @keyup.enter="toList" />
+    <font-awesome-icon class="fa-search" icon="search" />
+    <!-- <button class="submitBtn" @click="toList">검색</button> -->
+    </div>
+  
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import ListComponent from '../product/list.vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-export default {
+export default Vue.extend({
+  props: ['brands'],
   data() {
     return {
       searchContent: '',
@@ -39,19 +58,18 @@ export default {
       }
     },
   },
-}
+})
 </script>
 
 <style scoped>
+ul, ol, li { list-style:none; margin:0; padding:0; }
 .searchBar {
-  margin-left: 20px;
-  margin-bottom: 20px;
-  background: #ffffff;
-  border: 1px solid dodgerblue;
-  border-style: groove;
-  border-radius: 5px;
-  width: 70%;
-  height: 50px;
+  width:62%;
+  border-color: #bbb;
+  border-radius: 16px;
+  border-width: 1px;
+  padding: 6px 0 6px 0;
+  margin: 6px;
 }
 
 .searchList {
@@ -78,4 +96,22 @@ export default {
   color: #000066;
   background: #ffffff;
 }
+
+.text-area {
+  margin-left: 10px;
+  padding: 10px;
+}
+
+#search-Menu {
+  width: 90px;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.fa-search {
+  color: whitesmoke;
+}
+
+
 </style>

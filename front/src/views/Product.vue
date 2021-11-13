@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <ProductSearch @setInput="setInput" @setCategory="setCategory"></ProductSearch>
+      <ProductSearch v-bind:brands="brands" @setInput="setInput" @setCategory="setCategory"></ProductSearch>
     </div>
     <div class="flex-1 flex">
       <ProductList v-bind:items="items" :search="search" @toggleEditProduct="toggleEditProduct"></ProductList>
@@ -35,7 +35,8 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.getBrand()
+    this.getBrand(),
+    this.getProduct()
   },
   components: {
     ProductList: () => import('@/components/product/list.vue'),
