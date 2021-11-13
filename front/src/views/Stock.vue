@@ -1,7 +1,9 @@
 <!--親コンポーネント-->
 <template>
   <div class="flex flex-col">
-    <button class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700" @click="setCreate()">등록</button>
+    <button class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700" @click="setCreate()">
+      등록
+    </button>
     <div>
       <StockSearch v-on:search-options="search"></StockSearch>
     </div>
@@ -26,7 +28,7 @@ export default Vue.extend({
       data: {
         items: [],
       },
-      isCreate: false
+      isCreate: false,
     }
   },
   components: {
@@ -46,7 +48,11 @@ export default Vue.extend({
     showdetails(cond) {
       console.log('★★★showdetails★★★' + cond)
       //조건이 딸린 axiosGet으로 select해와야됨
-      axiosGetByCond('api/stock/detail', cond)
+      axiosGetByCond('api/stock/detail', {
+        params: {
+          st_pr_id: cond,
+        },
+      })
         .then((rs) => {
           rs.data.forEach((element: any) => {
             this.data.items.push({
@@ -67,12 +73,12 @@ export default Vue.extend({
       console.log('★★★viewDetails★★★')
       // this.brandList = item.br_name
     },
-    setCreate(){
+    setCreate() {
       this.isCreate = true
     },
-    setEdit(inputValue){
+    setEdit(inputValue) {
       this.isCreate = inputValue
-    }
+    },
   },
 })
 </script>
