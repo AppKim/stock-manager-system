@@ -39,9 +39,7 @@ import { axiosGet } from '@/api/axios.js'
 
 export default Vue.extend({
   name: 'Stock',
-  props: {
-    items: [],
-  },
+  props: ['items'],
   data() {
     return {
       data: {

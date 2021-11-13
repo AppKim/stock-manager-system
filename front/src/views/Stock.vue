@@ -8,7 +8,7 @@
       <StockSearch v-on:search-options="search"></StockSearch>
     </div>
     <div class="flex h-full">
-      <StockList @showlist="showlist" @showdetails="showdetails"></StockList>
+      <StockList @showlist="showlist" :items="items" @showdetails="showdetails"></StockList>
       <StockCreate v-if="isCreate" :brandList="items"></StockCreate>
       <StockEdit @changeEdit="setEdit" v-else @viewDetails="viewDetails"></StockEdit>
     </div>
@@ -27,7 +27,7 @@ export default Vue.extend({
   data() {
     return {
       data: {
-        items: [],
+        items: Array,
         type: true,
       },
       isCreate: false,
@@ -44,7 +44,7 @@ export default Vue.extend({
     showlist() {
       axiosGet('api/stocks')
         .then((rs) => {
-          console.log('★★★log★★★' + JSON.stringify(rs.data))
+          console.log('★★★showlist★★★' + JSON.stringify(rs.data))
           rs.data.forEach((element: any) => {
             this.data.items.push({
               st_pr_id: element.st_pr_id,
