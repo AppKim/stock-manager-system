@@ -23,8 +23,10 @@
         <td class="space-x-1">
           <button
             class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700"
-            @click="$emit('showdetails', item.st_pr_id)"
+            
+            @click="$emit('changeEdit',this.isCreate)"
           >
+          <!-- @click="$emit('showdetails', item.st_pr_id)" -->
             OK
           </button>
         </td>
@@ -43,8 +45,8 @@ export default Vue.extend({
     return {
       data: {
         items: [],
-        type: true,
       },
+      isCreate:false
     }
   },
   created() {
@@ -69,6 +71,10 @@ export default Vue.extend({
           console.log(e)
         })
     },
+    changeEdit(){
+      console.log("자식 컴포넌트"+this.isCreate)
+      this.$emit("changeEdit", this.isCreate)
+    }
     // showdetails() {
     //   this.$emit('showdetails', this.createCond())
     // },
