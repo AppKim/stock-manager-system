@@ -35,6 +35,7 @@ export default Vue.extend({
     }
   },
   mounted() {
+    this.getCategory()
     this.getBrand()
   },
   components: {
@@ -80,6 +81,12 @@ export default Vue.extend({
         .catch((e) => {
           console.log(e)
         })
+    },
+    getCategory() {
+      axiosGet('api/categories').then((rs) => {
+        console.log('categories')
+        console.log(rs)
+      })
     },
     getProduct() {
       axiosGet('api/products')

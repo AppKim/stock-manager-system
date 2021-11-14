@@ -12,9 +12,8 @@ module Api
       end
 
       def check_update_image(old_image_url)
-        new_image_url = params[:productImage].present? ? "public/product_images/#{params[:productImage].original_filename}" : ''
-        p new_image_url
-        if new_image_url != old_image_url
+        if params[:productImage] != old_image_url
+          new_image_url = "public/product_images/#{params[:productImage].original_filename}"
           # 등록된 이미지가 있다면 삭제
           if old_image_url.present?
             File.delete(old_image_url)
@@ -30,7 +29,8 @@ module Api
         ApplicationRecord.transaction do
           @product = Product.find(params[:id])
           productImage = check_update_image(@product.pr_img)
-  
+          
+          # https://edgeapi.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-update-21
           @product.update!(
             pr_name: params[:productName],
             pr_price: params[:productPrice],
@@ -41,9 +41,8 @@ module Api
           )
         end
         rescue StandardError => e
-          # TODO: Log는 어떻게 남길것인가?
-          p e.message
           Rails.logger.error(e.message)
+          e.message
         end
       end
     end
