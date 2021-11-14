@@ -8,15 +8,24 @@
       등록
     </button>
     <div class="flex h-full">
-      <StockList v-bind:items="data.items" v-on:showdetails="showdetails"></StockList>
-      <StockCreate v-if="isCreate" v-bind:brandList="data.items"></StockCreate>
-      <StockEdit v-else v-on:changeEdit="setEdit" v-on:viewDetails="viewDetails"></StockEdit>
+      <StockList v-bind:items="data.items" v-on:initialized="initialized" v-on:showdetails="showdetails"></StockList>
+      <StockCreate
+        v-if="isCreate"
+        v-bind:brandList="Array.from(new Set(data.items.map((el) => el.br_name)))"
+      ></StockCreate>
+      <StockEdit
+        v-else
+        v-bind:stockDetail="selectedItem"
+        v-on:changeEdit="setEdit"
+        v-on:viewDetails="viewDetails"
+      ></StockEdit>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { IStockDetailModel, IStockModel } from '../components/stock/interface/stock-interface'
 
 export default Vue.extend({
   name: 'Stock',
@@ -26,7 +35,7 @@ export default Vue.extend({
         items: [],
         type: true,
       },
-      isCreate: true,
+      isCreate: false,
       selectedItem: [],
     }
   },
@@ -38,25 +47,28 @@ export default Vue.extend({
   },
   methods: {
     // 검색 결과 갱신
-    searchResult(result: any) {
+    searchResult(result: IStockModel) {
       this.data.items = result
     },
+    initialized(data: Array<IStockModel>) {
+      this.data.items = data
+    },
     // List.vue에서 받은 내용으로 조건설정
-    showdetails(details: Array<any>) {
+    showdetails(details: Array<IStockDetailModel>) {
       console.group('★★★showdetails★★★')
       console.table(details)
       console.groupEnd()
       this.selectedItem = details
       this.isCreate = false
     },
-    viewDetails(formData) {
+    viewDetails(formData: any) {
       console.log('★★★viewDetails★★★')
       // this.brandList = item.br_name
     },
     setCreate() {
       this.isCreate = true
     },
-    setEdit(inputValue) {
+    setEdit(inputValue: any) {
       this.isCreate = inputValue
     },
   },

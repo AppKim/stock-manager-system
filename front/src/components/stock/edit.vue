@@ -3,13 +3,13 @@
     <h2 class="text-lg font-bold bg-tableColor-bg p-1.5">상품 수정</h2>
     <section class="flex flex-col space-y-2">
       <div>
-        <label name="expiration">유통기한 : </label>
+        <label name="expiration">유통기한 : {{ stockDetail.pr_expiration }} </label>
       </div>
       <div>
-        <label name="stockId">상품명 : </label>
+        <label name="stockId">상품명 : {{ stockDetail.br_name }}</label>
       </div>
       <div>
-        <label name="stockBrand">브랜드명 : </label>
+        <label name="stockBrand">브랜드명 : {{ stockDetail.br_name }}</label>
       </div>
       <div>
         <label name="stockCount">수량</label>
@@ -17,7 +17,7 @@
           type="text"
           class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
           name="stockCount"
-          v-model="stockCount"
+          v-model="stockDetail.count"
           :disabled="disabled"
         />
       </div>
@@ -36,16 +36,7 @@
 
 <script lang="ts">
 export default {
-  props: {
-    brands: {
-      type: Array,
-      required: true,
-    },
-    products: {
-      type: Array,
-      required: true,
-    },
-  },
+  props: ['stockDetail'],
   data() {
     return {
       expiration: '',

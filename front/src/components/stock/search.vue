@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { StockCategoryId } from './enum/stock.enum'
-import { SearchParams } from './interface/stock-interface'
+import { IResponse, IStockModel, SearchParams } from './interface/stock-interface'
 import { RequestSeacrh } from './services/stock-service'
 
 export default {
@@ -54,8 +54,8 @@ export default {
       const searchParm: SearchParams = { type: this.type, query: this.query }
       // 검색 API 요청
       RequestSeacrh(searchParm)
-        .then((result) => result.data)
-        .then((data) => {
+        .then((result: IResponse<IStockModel>) => result.data)
+        .then((data: Array<IStockModel>) => {
           // 성공시:결과 값 search-result이벤트에 data를 담아 부모 컴포넌트로 방출
           this.$emit.apply(this, ['search-result', data])
         })

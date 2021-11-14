@@ -61,14 +61,12 @@ export default {
       expiration: '',
       stockId: '',
       brandId: '',
+      stockBrand: this.brandList[0],
       stockCount: '',
 
       disabled: false,
     }
   },
-  // created() {
-  //   this.getBrand();
-  // },
   methods: {
     inputStock() {
       this.stockName = ''
@@ -86,18 +84,6 @@ export default {
       formData.append('stockCount', this.stockCount)
       return formData
     },
-    // getBrand() {
-    //   Axios.get("http://localhost:3000/api/brand")
-    //     .then((rs) => {
-    //       this.brandList.push(rs.data);
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
-    // },
-    // mounted: function(){
-    // Axios.get('http://localhost:3000/api/brand').then(response => this.brandList = response.data);
-    // },
   },
 }
 </script>

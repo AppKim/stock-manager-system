@@ -34,6 +34,7 @@
 </template>
 
 <script lang="ts">
+import { IResponse, IStockDetailModel, IStockModel } from './interface/stock-interface'
 import { RequestList, RequestDetail } from './services/stock-service'
 
 export default {
@@ -51,15 +52,15 @@ export default {
   created() {
     // 리스트 취득 API
     RequestList()
-      .then((rs: any) => {
+      .then((rs: IResponse<IStockModel>) => {
         console.group('★★★showlist★★★')
         console.table(rs.data)
         console.groupEnd()
         return rs.data
       })
-      .then((data: Array<any>) => {
+      .then((data: Array<IStockModel>) => {
         this.data.items = data
-        this.items = JSON.parse(JSON.stringify(this.data.items))
+        this.$emit.apply(this, ['initialized', JSON.parse(JSON.stringify(this.data.items))])
       })
       .catch((e: Error) => {
         console.error(`${e.name.concat('리스트 취득 에러')}\n${e.stack}`)
@@ -68,9 +69,9 @@ export default {
   methods: {
     requestDeatil(st_pr_id: number) {
       RequestDetail({ st_pr_id })
-        .then((rs: any) => rs.data)
-        .then((data: Array<any>) => {
-          this.$emit.apply(this, ['showdetails', data])
+        .then((rs: IResponse<IStockDetailModel>) => rs.data)
+        .then((data: Array<IStockDetailModel>) => {
+          this.$emit.apply(this, ['showdetails', data.length > 0 ? data[0] : []])
         })
         .catch((e: Error) => {
           console.error(`${e.name.concat('상세정보 취득 에러')}\n${e.stack}`)
