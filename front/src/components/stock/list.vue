@@ -41,16 +41,11 @@ export default {
   name: 'Stock',
   props: ['items'],
   data() {
-    return {
-      data: {
-        items: [],
-        type: true,
-      },
-      isCreate: false,
-    }
+    return {}
   },
+  // 컴포넌트 생성시
   created() {
-    // 리스트 취득 API
+    // 리스트 취득 API 호출
     RequestList()
       .then((rs: IResponse<IStockModel>) => {
         console.group('★★★showlist★★★')
@@ -59,19 +54,27 @@ export default {
         return rs.data
       })
       .then((data: Array<IStockModel>) => {
-        this.data.items = data
-        this.$emit.apply(this, ['initialized', JSON.parse(JSON.stringify(this.data.items))])
+        // 부모 컴포넌트에 initialized이벤트로 데이터 방출
+        this.$emit.apply(this, ['initialized', data])
       })
       .catch((e: Error) => {
-        console.error(`${e.name.concat('리스트 취득 에러')}\n${e.stack}`)
+        console.error(`${'리스트 취득 에러'.concat(e.name)}\n${e.stack}`)
       })
   },
   methods: {
     requestDeatil(st_pr_id: number) {
+      // 상세정보 요청 API 호출
       RequestDetail({ st_pr_id })
         .then((rs: IResponse<IStockDetailModel>) => rs.data)
         .then((data: Array<IStockDetailModel>) => {
-          this.$emit.apply(this, ['showdetails', data.length > 0 ? data[0] : []])
+          // stirng날짜를 Input["data"]에 입력 형식으로 변환
+          const date = new Date(data[0].pr_expiration)
+          data[0].pr_expiration = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+          return data
+        })
+        .then((data: Array<IStockDetailModel>) => {
+          // 부모 컴포넌트에 showdetails로 데이터 방출
+          this.$emit.apply(this, ['showdetails', data.length > 0 ? data[0] : {}])
         })
         .catch((e: Error) => {
           console.error(`${e.name.concat('상세정보 취득 에러')}\n${e.stack}`)

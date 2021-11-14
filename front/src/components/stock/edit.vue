@@ -1,27 +1,49 @@
 <template>
-  <div class="bg-white h-full w-full">
-    <h2 class="text-lg font-bold bg-tableColor-bg p-1.5">상품 수정</h2>
+  <div class="bg-white h-full w-full p-2.5">
+    <h2 class="text-2xl font-bold bg-tableColor-bg p-1.5">상품 수정</h2>
+    <hr class="mt-2.5 mb-2.5" />
     <section class="flex flex-col space-y-2">
-      <div>
-        <label name="expiration">유통기한 : {{ stockDetail.pr_expiration }} </label>
+      <div class="flex justify-between items-center">
+        <label name="expiration">유통기한</label>
+        <input
+          type="date"
+          class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
+          name="stockCount"
+          v-model="stockDetail.pr_expiration"
+          :disabled="disabled"
+        />
       </div>
-      <div>
-        <label name="stockId">상품명 : {{ stockDetail.br_name }}</label>
+      <div class="flex justify-between items-center">
+        <label name="stockBrand">브랜드명</label>
+        <select
+          v-model="stockDetail.br_name"
+          v-bind:disabled="disabled"
+          class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
+        >
+          <option v-for="(brand, i) in brandList" v-bind:key="i">{{ brand }}</option>
+        </select>
       </div>
-      <div>
-        <label name="stockBrand">브랜드명 : {{ stockDetail.br_name }}</label>
+      <div class="flex justify-between items-center">
+        <label name="stockId">가격</label>
+        <input
+          type="number"
+          class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
+          name="stockCount"
+          v-model="stockDetail.pr_price"
+          :disabled="disabled"
+        />
       </div>
-      <div>
+      <div class="flex justify-between items-center">
         <label name="stockCount">수량</label>
         <input
-          type="text"
+          type="number"
           class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
           name="stockCount"
           v-model="stockDetail.count"
           :disabled="disabled"
         />
       </div>
-      <div>
+      <div class="flex justify-center items-end">
         <input
           type="button"
           class="px-4 py-2 hover:opacity-50 cursor-pointer rounded-md text-white bg-green-500"
@@ -36,13 +58,21 @@
 
 <script lang="ts">
 export default {
-  props: ['stockDetail'],
+  props: {
+    stockDetail: {
+      type: Object,
+    },
+    brandList: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       expiration: '',
-      stockId: '',
-      brandId: '',
-      stockCount: '',
+      brandName: '',
+      price: 0,
+      stockCount: 0,
 
       disabled: false,
     }

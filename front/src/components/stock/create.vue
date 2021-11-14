@@ -1,8 +1,9 @@
 <template>
-  <div class="bg-white h-full w-full">
-    <h2 class="text-lg font-bold bg-tableColor-bg p-1.5">상품 등록</h2>
+  <div class="bg-white h-full w-full p-2.5">
+    <h2 class="text-2xl font-bold bg-tableColor-bg p-1.5">상품 등록</h2>
+    <hr class="mt-2.5 mb-2.5" />
     <section class="flex flex-col space-y-2">
-      <div>
+      <div class="flex justify-between items-center">
         <label name="expiration">유통기한</label>
         <input
           type="date"
@@ -13,19 +14,28 @@
           :disabled="disabled"
         />
       </div>
-      <div>
+      <div class="flex justify-between items-center">
         <label name="stockId">상품명</label>
-        <select name="products" id="products-select" :disabled="disabled">
+        <select
+          name="products"
+          id="products-select"
+          :disabled="disabled"
+          class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
+        >
           <option v-for="(brand, i) in brandList" :key="i">{{ brand }}</option>
         </select>
       </div>
-      <div>
+      <div class="flex justify-between items-center">
         <label name="stockBrand">브랜드명</label>
-        <select name="stockBrand" v-model="stockBrand">
+        <select
+          name="stockBrand"
+          v-model="stockBrand"
+          class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
+        >
           <option v-for="(brand, i) in brandList" :key="i">{{ brand }}</option>
         </select>
       </div>
-      <div>
+      <div class="flex justify-between items-center">
         <label name="stockCount">수량</label>
         <input
           type="text"
@@ -35,7 +45,7 @@
           :disabled="disabled"
         />
       </div>
-      <div>
+      <div class="flex justify-center items-end">
         <input
           type="button"
           class="px-4 py-2 hover:opacity-50 cursor-pointer rounded-md text-white bg-green-500"

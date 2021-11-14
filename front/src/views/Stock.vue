@@ -1,25 +1,27 @@
 <!--親コンポーネント-->
 <template>
   <div class="flex flex-col">
-    <div>
+    <header>
       <StockSearch v-on:search-result="searchResult"></StockSearch>
-    </div>
+    </header>
     <button class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700" @click="setCreate()">
       등록
     </button>
-    <div class="flex h-full">
-      <StockList v-bind:items="data.items" v-on:initialized="initialized" v-on:showdetails="showdetails"></StockList>
-      <StockCreate
-        v-if="isCreate"
-        v-bind:brandList="Array.from(new Set(data.items.map((el) => el.br_name)))"
-      ></StockCreate>
-      <StockEdit
-        v-else
-        v-bind:stockDetail="selectedItem"
-        v-on:changeEdit="setEdit"
-        v-on:viewDetails="viewDetails"
-      ></StockEdit>
-    </div>
+    <section class="flex h-full gap-5">
+      <article class="flex-auto">
+        <StockList v-bind:items="data.items" v-on:initialized="initialized" v-on:showdetails="showdetails"></StockList>
+      </article>
+      <article class="flex-auto">
+        <StockCreate v-if="isCreate" v-bind:brandList="brandList"></StockCreate>
+        <StockEdit
+          v-else
+          v-bind:stockDetail="selectedItem"
+          v-bind:brandList="brandList"
+          v-on:changeEdit="setEdit"
+          v-on:viewDetails="viewDetails"
+        ></StockEdit>
+      </article>
+    </section>
   </div>
 </template>
 
@@ -36,7 +38,8 @@ export default Vue.extend({
         type: true,
       },
       isCreate: false,
-      selectedItem: [],
+      selectedItem: {},
+      brandList: [],
     }
   },
   components: {
@@ -46,18 +49,22 @@ export default Vue.extend({
     StockSearch: () => import('../components/stock/search.vue'),
   },
   methods: {
-    // 검색 결과 갱신
     searchResult(result: IStockModel) {
+      // 검색 결과 갱신
       this.data.items = result
     },
     initialized(data: Array<IStockModel>) {
+      // List에서 최초 데이터 취득
       this.data.items = data
+      // 브랜드 리스트(set 으로 브랜드 중복 제거)
+      this.brandList = Array.from(new Set(data.map((el) => el.br_name)))
     },
     // List.vue에서 받은 내용으로 조건설정
     showdetails(details: Array<IStockDetailModel>) {
       console.group('★★★showdetails★★★')
       console.table(details)
       console.groupEnd()
+      // 이벤트를 선택 항목으로 할당 하고 수정모드로 전환
       this.selectedItem = details
       this.isCreate = false
     },
