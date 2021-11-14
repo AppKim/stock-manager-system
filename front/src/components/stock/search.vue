@@ -39,6 +39,7 @@
 <script lang="ts">
 import { StockCategoryId } from './enum/stock.enum'
 import { SearchParams } from './interface/stock-interface'
+import { RequestSeacrh } from './services/stock-service'
 
 export default {
   data() {
@@ -51,7 +52,14 @@ export default {
   methods: {
     requestSearch() {
       const searchParm: SearchParams = { type: this.type, query: this.query }
-      this.$emit('request-search', searchParm)
+      // 검색 API 요청
+      RequestSeacrh(searchParm)
+        .then((result) => result.data)
+        .then((data) => {
+          // 성공시:결과 값 search-result이벤트에 data를 담아 부모 컴포넌트로 방출
+          this.$emit.apply(this, ['search-result', data])
+        })
+        .catch((e: Error) => console.error(`${e.name.concat('검색 에러: 통신 에러')}\n ${e.stack}`))
     },
   },
 }

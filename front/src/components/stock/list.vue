@@ -23,7 +23,7 @@
         <td class="space-x-1">
           <button
             class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700"
-            @click="$emit('showdetails', item.st_pr_id, this.iscreate)"
+            @click="requestDeatil(item.st_pr_id)"
           >
             OK
           </button>
@@ -34,9 +34,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { RequestList, RequestDetail } from './services/stock-service'
 
-export default Vue.extend({
+export default {
   name: 'Stock',
   props: ['items'],
   data() {
@@ -49,8 +49,33 @@ export default Vue.extend({
     }
   },
   created() {
-    this.$emit('showlist')
+    // 리스트 취득 API
+    RequestList()
+      .then((rs: any) => {
+        console.group('★★★showlist★★★')
+        console.table(rs.data)
+        console.groupEnd()
+        return rs.data
+      })
+      .then((data: Array<any>) => {
+        this.data.items = data
+        this.items = JSON.parse(JSON.stringify(this.data.items))
+      })
+      .catch((e: Error) => {
+        console.error(`${e.name.concat('리스트 취득 에러')}\n${e.stack}`)
+      })
   },
-  methods: {},
-})
+  methods: {
+    requestDeatil(st_pr_id: number) {
+      RequestDetail({ st_pr_id })
+        .then((rs: any) => rs.data)
+        .then((data: Array<any>) => {
+          this.$emit.apply(this, ['showdetails', data])
+        })
+        .catch((e: Error) => {
+          console.error(`${e.name.concat('상세정보 취득 에러')}\n${e.stack}`)
+        })
+    },
+  },
+}
 </script>

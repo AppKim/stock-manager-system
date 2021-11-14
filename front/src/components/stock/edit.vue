@@ -1,4 +1,4 @@
-<template >
+<template>
   <div class="bg-white h-full w-full">
     <h2 class="text-lg font-bold bg-tableColor-bg p-1.5">상품 수정</h2>
     <section class="flex flex-col space-y-2">
@@ -13,7 +13,13 @@
       </div>
       <div>
         <label name="stockCount">수량</label>
-        <input type="text" class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500" name="stockCount" v-model="stockCount" :disabled="disabled"/>
+        <input
+          type="text"
+          class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
+          name="stockCount"
+          v-model="stockCount"
+          :disabled="disabled"
+        />
       </div>
       <div>
         <input
@@ -26,16 +32,10 @@
       </div>
     </section>
   </div>
-
-
 </template>
 
-
 <script lang="ts">
-import Vue from "vue";
-import { component } from "vue/types/umd";
-import listvue from './list.vue';
-export default Vue.extend({
+export default {
   props: {
     brands: {
       type: Array,
@@ -44,44 +44,38 @@ export default Vue.extend({
     products: {
       type: Array,
       required: true,
-    }
+    },
   },
   data() {
     return {
-      expiration: "",
-      stockId: "",
-      brandId: "",
-      stockCount: "",
+      expiration: '',
+      stockId: '',
+      brandId: '',
+      stockCount: '',
 
       disabled: false,
-    };
+    }
   },
   // created() {
   //   this.getBrand();
   // },
   methods: {
     inputStock() {
-      this.stockName = "";
-      this.stockCount = "";
-      this.stockBrand = "";
-    }, 
-    createStock(){
+      this.stockName = ''
+      this.stockCount = ''
+      this.stockBrand = ''
+    },
+    createStock() {
       this.$emit('changeitemcount', this.createFormData())
     },
 
-    
-
-    changeFormData(): FormData{
+    changeFormData(): FormData {
       let formData = new FormData()
       formData.append('stockCount', this.stockCount)
       return formData
     },
-  component:{
-    listvue
-  }
- 
   },
-});
+}
 </script>
 <style scoped>
 li {
