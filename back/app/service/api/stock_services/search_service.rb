@@ -12,10 +12,14 @@ module Api
             private
             def serach_stock
                 if @params[:query] != ''
-                    key = case @params[:type]
-                        when "0" then "stocks.st_pr_id = ?"
-                        when "1" then "products.pr_ca_id = ?"
-                        when "2" then "brands.br_name = ?"
+                    case @params[:type]
+                        when "0" then 
+                            key = "stocks.st_pr_id = ?"
+                        when "1" then 
+                            key = "products.pr_ca_id = ?"
+                        when "2" then 
+                            key = "brands.br_name like ?"
+                            @params[:query] = "%"+@params[:query]+"%"   
                     end
                 end
 

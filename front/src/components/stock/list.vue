@@ -2,32 +2,36 @@
   <div class="bg-white h-full w-full">
     <!-- suji -->
     <table>
-      <thead class="h-10 bg-tableColor-bg border-b border-tableColor-border whitespace-nowrap">
-        <th class="text-xs text-center text-tableColor-text px-6">상품재고ID</th>
-        <th class="text-xs text-center text-tableColor-text px-6">카테고리ID</th>
-        <th class="text-xs text-center text-tableColor-text px-6">브랜드</th>
-        <th class="text-xs text-center text-tableColor-text px-6">가격</th>
-        <th class="text-xs text-center text-tableColor-text px-6">수량</th>
-        <th class="text-xs text-center text-tableColor-text px-6">수정</th>
+      <thead>
+        <tr class="h-10 bg-tableColor-bg border-b border-tableColor-border whitespace-nowrap">
+          <th class="text-xs text-center text-tableColor-text px-6">상품재고ID</th>
+          <th class="text-xs text-center text-tableColor-text px-6">카테고리ID</th>
+          <th class="text-xs text-center text-tableColor-text px-6">브랜드</th>
+          <th class="text-xs text-center text-tableColor-text px-6">가격</th>
+          <th class="text-xs text-center text-tableColor-text px-6">수량</th>
+          <th class="text-xs text-center text-tableColor-text px-6">수정</th>
+        </tr>
       </thead>
-      <tbody
-        class="py-2.5 h-12 border-b border-tableColor-border whitespace-nowrap"
-        v-for="item in this.items"
-        v-bind:key="item.id"
-      >
-        <td class="px-6">{{ item.st_pr_id }}</td>
-        <td class="px-6">{{ item.pr_ca_id }}</td>
-        <td class="px-6">{{ item.br_name }}</td>
-        <td class="px-6">{{ item.pr_price }}</td>
-        <td class="px-6">{{ item.count }}</td>
-        <td class="space-x-1">
-          <button
-            class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700"
-            @click="requestDeatil(item.st_pr_id)"
-          >
-            OK
-          </button>
-        </td>
+      <tbody>
+        <tr
+          class="py-2.5 h-12 border-b border-tableColor-border whitespace-nowrap"
+          v-for="item in this.items"
+          v-bind:key="item.id"
+        >
+          <td class="px-6">{{ item.st_pr_id }}</td>
+          <td class="px-6">{{ item.pr_ca_id }}</td>
+          <td class="px-6">{{ item.br_name }}</td>
+          <td class="px-6">{{ item.pr_price }}</td>
+          <td class="px-6">{{ item.count }}</td>
+          <td class="space-x-1">
+            <button
+              class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700"
+              @click="requestDeatil(item.st_pr_id)"
+            >
+              OK
+            </button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
