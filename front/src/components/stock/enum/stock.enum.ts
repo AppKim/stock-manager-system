@@ -1,5 +1,7 @@
 export enum StockURLs {
+    getListUrL = 'api/stocks',
     searchUrl = 'api/stocks/search',
+    detailUrl = 'api/stock/detail',
 }
 
 export enum StockCategoryId {

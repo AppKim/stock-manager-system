@@ -21,7 +21,6 @@ module Api
         def search
             service = Api::StockServices::SearchService.new(params)
             @result = service.execute
-            # @result = service.execute(params)
         end
 
     end

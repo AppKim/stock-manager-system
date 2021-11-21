@@ -11,21 +11,38 @@ module Api
 
             private
             def serach_stock
-                 @result = Stock.joins(product: :brand)
-                 .select(
-                'stocks.st_pr_id, 
-                 products.pr_ca_id, 
-                 brands.br_name, 
-                 products.pr_price, 
-                 count(stocks.st_pr_id) as count')
-                 .where(
+                if @params[:query] != ''
                     case @params[:type]
-                        when "0" then st_pr_id = @params[:query]
-                        when "1" then pr_ca_id = @params[:query]
-                        when "2" then br_name = @params[:query]
+                        when "0" then 
+                            key = "stocks.st_pr_id = ?"
+                        when "1" then 
+                            key = "products.pr_ca_id = ?"
+                        when "2" then 
+                            key = "brands.br_name like ?"
+                            @params[:query] = "%"+@params[:query]+"%"   
                     end
-                 )
-                 .group('stocks.st_pr_id')
+                end
+
+                @result = Stock
+                .joins(
+                    product: :brand
+                ).select('
+                    stocks.st_pr_id, 
+                    products.pr_ca_id, 
+                    brands.br_name, 
+                    products.pr_price, 
+                    count(stocks.st_pr_id) as count
+                ').where(
+                    key, @params[:query]
+                ).group(
+                    'stocks.st_pr_id'
+                )
+                
+                p @result
+                rescue StandardError => e
+                    result.store('message', e.message)
+                    Rails.logger.error(e.message)
+                    Rails.logger.error(e.backtrace.join("\n"))
             end
         end
     end
