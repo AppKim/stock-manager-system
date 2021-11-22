@@ -3,7 +3,7 @@
     <h2 class="text-lg font-bold bg-tableColor-bg p-1.5">{{ title }}</h2>
     <section class="flex flex-col space-y-2 p-2">
       <div class="flex items-center">
-        <label name="productName">상품명</label>
+        <label class="w-[60px]" name="productName">상품명</label>
         <input
           class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
           type="text"
@@ -11,8 +11,8 @@
           v-model="productName"
         />
       </div>
-      <div>
-        <label name="productPrice">가격</label>
+      <div class="flex items-center">
+        <label class="w-[60px]" name="productPrice">가격</label>
         <input
           class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
           type="text"
@@ -20,20 +20,20 @@
           v-model="productPrice"
         />
       </div>
-      <div>
-        <label name="productBrand">브랜드</label>
+      <div class="flex items-center">
+        <label class="w-[60px]" name="productBrand">브랜드</label>
         <select name="productBrand" v-model="productBrand">
           <option v-for="(brand, index) in brands" :value="brand.id" v-bind:key="index">
             {{ brand.name }}
           </option>
         </select>
       </div>
-      <div>
-        <label name="productImage">이미지</label>
+      <div class="flex items-center flex-wrap">
+        <label class="w-[60px]" name="productImage">이미지</label>
         <input ref="image" type="file" name="productImage" accept="image/png,image/jpeg" @change="setImage" />
       </div>
-      <div>
-        <label name="productBarcode">바코드</label>
+      <div class="flex items-center">
+        <label class="w-[60px]" name="productBarcode">바코드</label>
         <input
           class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
           type="text"
@@ -41,8 +41,8 @@
           v-model="productBarcode"
         />
       </div>
-      <div>
-        <label name="productExpiration">유통기한</label>
+      <div class="flex items-center">
+        <label class="w-[60px]" name="productExpiration">유통기한</label>
         <input
           class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
           type="date"
