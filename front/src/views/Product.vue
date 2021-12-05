@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <ProductSearch v-bind:brands="brands" @setInput="setInput" @setCategory="setCategory"></ProductSearch>
+      <ProductSearch v-bind:brands="brands" :category="category" @setInput="setInput" @serchSelectbox="serchSelectbox"></ProductSearch>
     </div>
     <div class="flex-1 flex">
       <ProductList v-bind:items="items" :search="search" @toggleEditProduct="toggleEditProduct"></ProductList>
@@ -30,6 +30,7 @@ export default Vue.extend({
       items: [],
       search: [],
       brands: [],
+      category: [],
       onUpdate: false,
       updateProductInfo: {},
     }
@@ -37,6 +38,7 @@ export default Vue.extend({
   mounted() {
     this.getBrand(),
     this.getProduct()
+    this.getCategory()
   },
   components: {
     ProductList: () => import('@/components/product/list.vue'),
@@ -77,6 +79,17 @@ export default Vue.extend({
       axiosGet('api/brands')
         .then((rs) => {
           this.brands = rs.data.brands
+          console.log(rs);
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
+    getCategory() {
+      axiosGet('api/categories')
+        .then((rs) => {
+          this.category = rs.data.categories
+          console.log(rs);
         })
         .catch((e) => {
           console.log(e)
@@ -109,6 +122,10 @@ export default Vue.extend({
         .catch((e) => {
           console.log(e)
         })
+    },
+    // 셀렉트 박스로 조회하기
+    serchSelectbox (serchSelectbox) {
+      console.log(serchSelectbox);
     },
   },
 })

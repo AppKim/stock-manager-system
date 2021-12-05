@@ -1,33 +1,37 @@
 <template>
   <div class="bg-white-500 h-full w-full">
-    <select name="list" class="searchList" v-model="searchItems">
+    <select name="list" class="searchList" v-model="searchItems" >
       <option value="1">상품명</option>
       <option value="2">브랜드</option>
       <option value="3">카테고리</option>
       <option value="4">등록자</option>
     </select>
+    
     <select id="categoryList" name="list" class="searchList" v-model="searchItems">
       <option value="5">카테고리</option>
     </select>
+
+    <!-- 브랜드 풀다운  -->
       <span class="text-area">브랜드</span>
-      <input type="search" id="search-Menu" list="brands">
-      <datalist id="brands">
-      <option value="jinro"></option>
-      <option value="jinro"></option>
+      <input type="search" class="search-brands" id="search-Menu" list="brands">
+      <datalist id="brands" >
+      <option v-for="(brand, index) in brands" :key="index">{{brand.name}}</option>
      </datalist>
+    
+    <!-- 카테고리 풀다운  -->
       <span class="text-area">카테고리</span>
-      <input type="search" id="search-Menu" list="category">
-      <datalist id="category">
-      <option value="Drink"></option>
-      <option value="Drink"></option>
+      <input type="search" class="search-category" id="search-Menu" list="category">
+      <datalist id="category" >
+      <option v-for="(categoryItem, index) in category" :key="index">{{categoryItem.name}}</option>
      </datalist>
+    
+    <!-- 검색  -->
     <div class="serch-area">
     <input class="searchBar" type="text"
     placeholder="검색어를 입력해 주세요" v-model="searchContent" @keyup.enter="toList" />
-    <font-awesome-icon class="fa-search" icon="search" />
+    <font-awesome-icon class="fa-search" icon="search" @click="toSearch"/>
     <!-- <button class="submitBtn" @click="toList">검색</button> -->
     </div>
-  
   </div>
 </template>
 
@@ -37,7 +41,7 @@ import ListComponent from '../product/list.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default Vue.extend({
-  props: ['brands'],
+  props: ['brands', 'category'],
   data() {
     return {
       searchContent: '',
@@ -56,6 +60,19 @@ export default Vue.extend({
         this.$emit('setInput', this.searchCategory, this.searchContent)
         this.searchContent = ''
       }
+    },
+    toSearch() {
+      const brandCheck = document.querySelector('.search-brands');
+      const categoryCheck = document.querySelector('.search-category');
+      if( brandCheck.value.length === 0 && categoryCheck.value.length === 0 || brandCheck.value.length !== 0 && categoryCheck.value.length !== 0) {
+        alert('다시 확인해주세요');
+      }else if( brandCheck.value.length !== 0) {
+        console.log(brandCheck.value);
+        this.$emit('serchSelectbox', brandCheck.value);
+      }else if( categoryCheck.value.length !== 0 ) {
+        this.$emit('serchSelectbox', categoryCheck.value);
+      }
+   
     },
   },
 })
@@ -111,6 +128,11 @@ ul, ol, li { list-style:none; margin:0; padding:0; }
 
 .fa-search {
   color: whitesmoke;
+}
+
+.fa-search:hover {
+  color: black;
+  cursor: pointer;
 }
 
 
