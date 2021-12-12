@@ -1,35 +1,40 @@
 <template>
   <div class="bg-white-500 h-full w-full">
+    <span class="text-area">상품</span>
     <select name="list" class="searchList" v-model="searchItems" >
       <option value="1">상품명</option>
-      <option value="2">브랜드</option>
-      <option value="3">카테고리</option>
       <option value="4">등록자</option>
     </select>
     
-    <select id="categoryList" name="list" class="searchList" v-model="searchItems">
-      <option value="5">카테고리</option>
+    <span class="text-area">카테고리</span>
+    <select id="categoryList" name="list" class="searchList" v-model="searchCategory">
+    <option :value="category.id" v-for="(category, index) in category" :key="index">{{category.name}}</option>
     </select>
 
-    <!-- 브랜드 풀다운  -->
+    <span class="text-area">브랜드</span>
+    <select id="brandList" name="list" class="searchList" v-model="searchBrand">
+    <option :value="brand.id" v-for="(brand, index) in brands" :key="index">{{brand.name}}</option>
+    </select>
+
+    <!-- 브랜드 풀다운 
       <span class="text-area">브랜드</span>
       <input type="search" class="search-brands" id="search-Menu" list="brands">
       <datalist id="brands" >
-      <option v-for="(brand, index) in brands" :key="index">{{brand.name}}</option>
-     </datalist>
+      <option :value="brand.id" v-for="(brand, index) in brands" :key="index">{{brand.name}}</option>
+     </datalist> -->
     
-    <!-- 카테고리 풀다운  -->
+    <!-- 카테고리 풀다운 
       <span class="text-area">카테고리</span>
       <input type="search" class="search-category" id="search-Menu" list="category">
       <datalist id="category" >
       <option v-for="(categoryItem, index) in category" :key="index">{{categoryItem.name}}</option>
-     </datalist>
+     </datalist> -->
     
     <!-- 검색  -->
     <div class="serch-area">
     <input class="searchBar" type="text"
-    placeholder="검색어를 입력해 주세요" v-model="searchContent" @keyup.enter="toList" />
-    <font-awesome-icon class="fa-search" icon="search" @click="toSearch"/>
+    placeholder="검색어를 입력해 주세요" v-model="searchContent" @keyup.enter="toList()" />
+    <font-awesome-icon class="fa-search" icon="search" @click="toList()"/>
     <!-- <button class="submitBtn" @click="toList">검색</button> -->
     </div>
   </div>
@@ -47,18 +52,24 @@ export default Vue.extend({
       searchContent: '',
       searchItems: '',
       searchCategory: '',
+      searchBrand: '',
     }
   },
   methods: {
     toList() {
-      if (this.searchContent === '') {
-        alert('검색어를 입력해 주세요')
-      } else if (this.searchItems !== null) {
+      if (this.searchItems === '' && this.searchContent === '' && this.searchCategory === '' && this.searchBrand === '' 
+      || this.searchItems !== '' && this.searchContent !== '' && this.searchCategory !== '' && this.searchBrand !== '')  {
+        alert('상품 또는 등록자명을 입력해 주세요')
+      } else if (this.searchItems !== '') {
+        console.log(this.searchItems);
         this.$emit('setInput', this.searchItems, this.searchContent)
         this.searchContent = ''
-      } else if (this.searchCategory !== null) {
-        this.$emit('setInput', this.searchCategory, this.searchContent)
-        this.searchContent = ''
+      } else if (this.searchCategory !== '') {
+         this.$emit('serchSelectbox', this.searchCategory);
+        //this.searchContent = ''
+      } else if (this.searchBrand !== '') {
+         this.$emit('serchSelectbox', this.searchBrand);
+        //this.searchContent = ''
       }
     },
     toSearch() {
@@ -72,8 +83,15 @@ export default Vue.extend({
       }else if( categoryCheck.value.length !== 0 ) {
         this.$emit('serchSelectbox', categoryCheck.value);
       }
-   
     },
+    toTest() {
+      console.log(this.searchCategory);
+      if(this.searchCategory === null) {
+        console.log('null');
+      }else {
+        console.log('not null')
+      }
+    }
   },
 })
 </script>
@@ -91,9 +109,9 @@ ul, ol, li { list-style:none; margin:0; padding:0; }
 
 .searchList {
   margin-right: 10px;
-  border: 1px solid dodgerblue;
-  border-radius: 5px;
-  height: 50px;
+  border: 1px solid #bbb;
+  border-radius: 16px;
+  height: 30px;
   cursor: pointer;
 }
 

@@ -126,6 +126,20 @@ export default Vue.extend({
     // 셀렉트 박스로 조회하기
     serchSelectbox (serchSelectbox) {
       console.log(serchSelectbox);
+      axios.get('api/products/search', {
+        params: {
+          // brand:serchSelectbox,
+          category: serchSelectbox
+        }
+      })
+      .then((rs) => {
+          this.items = rs.data.results
+          console.log(rs)
+        })
+      .catch((e) => {
+          console.log(e)
+        })
+
     },
   },
 })
