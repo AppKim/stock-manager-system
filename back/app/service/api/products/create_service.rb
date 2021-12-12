@@ -3,24 +3,26 @@ module Api
     class CreateService
       def initialize(params)
         @params = params
-        @result = {}
+        @response = {
+          result: 'success'
+        }
       end
 
       def execute
         add_product
-        result
+        @response
       end
 
       private
 
-      attr_reader :params, :result
+      attr_reader :params, :response
 
       def add_product
         image_url = upload_image
         ApplicationRecord.transaction do
           product = Product.new(
             pr_us_id: 1,
-            pr_ca_id: 1,
+            pr_ca_id: 17,
             pr_br_id: params[:productBrand],
             pr_name: params[:productName],
             pr_price: params[:productPrice],
@@ -31,9 +33,10 @@ module Api
           product.save!
         end
       rescue StandardError => e
-        result.store('message', e.message)
         Rails.logger.error(e.message)
         Rails.logger.error(e.backtrace.join("\n"))
+        response[:result] = 'fail'
+        response.store(:message, e.message)
       end
 
       def upload_image
