@@ -1,5 +1,5 @@
 module Api
-    module StockServices
+    module Stocks
         class DetailService
             def initialize(params)
                 @params = params
