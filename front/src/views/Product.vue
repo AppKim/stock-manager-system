@@ -1,7 +1,8 @@
 <template>
   <div>
     <div>
-      <ProductSearch @setInput="setInput"></ProductSearch>
+      <ProductSearch v-bind:brands="brands" :category="category" @setInput="setInput" @serchSelectbox="serchSelectbox"></ProductSearch>
+      <!-- <ProductSearch @setInput="setInput"></ProductSearch> -->
     </div>
     <div class="flex-1 flex">
       <ProductList v-bind:items="items" :search="search" @toggleEditProduct="toggleEditProduct"></ProductList>
@@ -30,13 +31,15 @@ export default Vue.extend({
       items: [],
       search: [],
       brands: [],
+      category: [],
       onUpdate: false,
       updateProductInfo: {},
     }
   },
   mounted() {
+    this.getBrand(),
+    this.getProduct()
     this.getCategory()
-    this.getBrand()
   },
   components: {
     ProductList: () => import('@/components/product/list.vue'),
@@ -78,16 +81,21 @@ export default Vue.extend({
         .then((rs) => {
           console.log(rs)
           this.brands = rs.data.brands
+          console.log(rs);
         })
         .catch((e) => {
           console.log(e)
         })
     },
     getCategory() {
-      axiosGet('api/categories').then((rs) => {
-        console.log('categories')
-        console.log(rs)
-      })
+      axiosGet('api/categories')
+        .then((rs) => {
+          this.category = rs.data.categories
+          console.log(rs);
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     },
     getProduct() {
       axiosGet('api/products')
@@ -116,6 +124,24 @@ export default Vue.extend({
         .catch((e) => {
           console.log(e)
         })
+    },
+    // 셀렉트 박스로 조회하기
+    serchSelectbox (serchSelectbox) {
+      console.log(serchSelectbox);
+      axios.get('api/products/search', {
+        params: {
+          // brand:serchSelectbox,
+          category: serchSelectbox
+        }
+      })
+      .then((rs) => {
+          this.items = rs.data.results
+          console.log(rs)
+        })
+      .catch((e) => {
+          console.log(e)
+        })
+
     },
   },
 })

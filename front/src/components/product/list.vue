@@ -88,22 +88,18 @@ export default Vue.extend({
   data() {
     return {}
   },
-  created() {
-    this.isLoading = true
-    this.getProduct()
-  },
   methods: {
-    getProduct() {
-      axiosGet('api/products')
-        .then((rs) => {
-          this.items = rs.data.results
-          console.log(rs.data.results)
-          this.isLoading = false
-        })
-        .catch((e) => {
-          console.log(e)
-        })
-    },
+    // getProduct() {
+    //   axiosGet('api/products')
+    //     .then((rs) => {
+    //       this.items = rs.data.results
+    //       console.log(rs.data.results)
+    //       this.isLoading = false
+    //     })
+    //     .catch((e) => {
+    //       console.log(e)
+    //     })
+    // },
     deleteProduct(pr_id: string, index: number): void {
       axiosDelete('api/products', pr_id)
         .then((response) => {
