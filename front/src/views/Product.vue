@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <ProductSearch @setInput="setInput" @setCategory="setCategory"></ProductSearch>
+      <ProductSearch @setInput="setInput"></ProductSearch>
     </div>
     <div class="flex-1 flex">
       <ProductList v-bind:items="items" :search="search" @toggleEditProduct="toggleEditProduct"></ProductList>
@@ -76,6 +76,7 @@ export default Vue.extend({
     getBrand() {
       axiosGet('api/brands')
         .then((rs) => {
+          console.log(rs)
           this.brands = rs.data.brands
         })
         .catch((e) => {
