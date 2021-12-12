@@ -111,6 +111,7 @@ ul, ol, li { list-style:none; margin:0; padding:0; }
   margin-right: 10px;
   border: 1px solid #bbb;
   border-radius: 16px;
+  width: 80px;
   height: 30px;
   cursor: pointer;
 }
