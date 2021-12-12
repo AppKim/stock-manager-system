@@ -34,5 +34,10 @@ module Api
         render json: @result, status: :gone
       end
     end
+
+    def show
+      service = Api::Products::SearchService.new(params)
+      @products = service.execute
+    end
   end
 end
