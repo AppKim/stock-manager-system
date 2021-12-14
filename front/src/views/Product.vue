@@ -1,11 +1,23 @@
 <template>
   <div>
     <div>
-      <ProductSearch v-bind:brands="brands" :category="category" @setInput="setInput" @serchSelectbox="serchSelectbox"></ProductSearch>
+      <ProductSearch
+        v-bind:brands="brands"
+        :category="category"
+        @setInput="setInput"
+        @serchSelectbox="serchSelectbox"
+      ></ProductSearch>
       <!-- <ProductSearch @setInput="setInput"></ProductSearch> -->
     </div>
     <div class="flex-1 flex">
-      <ProductList v-bind:items="items" :search="search" @toggleEditProduct="toggleEditProduct"></ProductList>
+      <Loading v-if="isLoading" />
+      <ProductList
+        v-else
+        v-bind:items="items"
+        :search="search"
+        @editProduct="toggleEditProduct"
+        @deleteProduct="deleteProduct"
+      ></ProductList>
       <ProductEdit
         :brands="brands"
         :on-update="onUpdate"
@@ -21,7 +33,7 @@
 <script lang="ts">
 import axios from 'axios'
 import Vue from 'vue'
-import { axiosPost, axiosGet, axiosPut } from '@/api/axios.js'
+import { axiosPost, axiosGet, axiosPut, axiosDelete } from '@/api/axios.js'
 
 export default Vue.extend({
   name: 'Product',
@@ -37,8 +49,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.getBrand(),
-    this.getProduct()
+    this.getBrand(), this.getProduct()
     this.getCategory()
   },
   components: {
@@ -71,9 +82,20 @@ export default Vue.extend({
       axiosPut('api/products', this.updateProductInfo.pr_id, formData)
         .then((response) => {
           console.log(response)
+          this.getProduct()
         })
         .catch((error) => {
           console.log(error)
+        })
+    },
+    deleteProduct(pr_id) {
+      axiosDelete('api/products', pr_id)
+        .then((response) => {
+          console.log(response)
+          this.getProduct()
+        })
+        .catch((error) => {
+          console.error(error)
         })
     },
     getBrand() {
@@ -81,7 +103,7 @@ export default Vue.extend({
         .then((rs) => {
           console.log(rs)
           this.brands = rs.data.brands
-          console.log(rs);
+          console.log(rs)
         })
         .catch((e) => {
           console.log(e)
@@ -91,17 +113,19 @@ export default Vue.extend({
       axiosGet('api/categories')
         .then((rs) => {
           this.category = rs.data.categories
-          console.log(rs);
+          console.log(rs)
         })
         .catch((e) => {
           console.log(e)
         })
     },
     getProduct() {
+      this.isLoading = true
       axiosGet('api/products')
         .then((rs) => {
           this.items = rs.data.results
           console.log(rs)
+          this.isLoading = false
         })
         .catch((e) => {
           console.log(e)
@@ -126,22 +150,22 @@ export default Vue.extend({
         })
     },
     // 셀렉트 박스로 조회하기
-    serchSelectbox (serchSelectbox) {
-      console.log(serchSelectbox);
-      axios.get('api/products/search', {
-        params: {
-          // brand:serchSelectbox,
-          category: serchSelectbox
-        }
-      })
-      .then((rs) => {
+    serchSelectbox(serchSelectbox) {
+      console.log(serchSelectbox)
+      axios
+        .get('api/products/search', {
+          params: {
+            // brand:serchSelectbox,
+            category: serchSelectbox,
+          },
+        })
+        .then((rs) => {
           this.items = rs.data.results
           console.log(rs)
         })
-      .catch((e) => {
+        .catch((e) => {
           console.log(e)
         })
-
     },
   },
 })
