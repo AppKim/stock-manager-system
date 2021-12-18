@@ -10,7 +10,7 @@ module Api
             end
 
             private
-            #attr_reader란 인스턴스변수(선두에 @가 달린변수)를 읽을때 사용
+            # attr_reader란 인스턴스변수(선두에 @가 달린변수)를 읽을때 사용
             attr_reader :params
             def get_stock_detail
                 @result = Stock.joins(product: :brand)
