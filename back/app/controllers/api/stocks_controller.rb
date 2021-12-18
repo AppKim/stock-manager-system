@@ -12,10 +12,11 @@ module Api
               render json: @result['message'], status: :unprocessable_entity
             end
         end
-    def create
-      service = Api::Stocks::CreateService.new(params)
-      service.execute
-    end
+
+        def create
+          service = Api::Stocks::CreateService.new(params)
+          service.execute
+        end
 
         def detail
             service = Api::StockServices::DetailService.new(params)
@@ -28,23 +29,25 @@ module Api
                 render json: @result['message'], status: :unprocessable_entity
               end
         end
-    def detail
-      service = Api::Stocks::DetailService.new(params)
-      @result = service.execute
-    end
 
-    def search
-      service = Api::Stocks::SearchService.new(params)
-      @res = service.execute
-      if @res[:result].present?
-        if @res[:result].eql? 'fail'
-          render json: @res, status: :internal_server_error
-        else
-          render json: @res['result'], status: :ok
+        def detail
+          service = Api::Stocks::DetailService.new(params)
+          @result = service.execute
         end
-      else
-        render status: :no_content
-      end
+
+        def search
+          service = Api::Stocks::SearchService.new(params)
+          @res = service.execute
+          if @res[:result].present?
+            if @res[:result].eql? 'fail'
+              render json: @res, status: :internal_server_error
+            else
+              render json: @res['result'], status: :ok
+            end
+          else
+            render status: :no_content
+          end
+        end
+        
     end
-  end
 end
