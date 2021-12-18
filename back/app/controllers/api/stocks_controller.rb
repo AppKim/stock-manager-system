@@ -1,7 +1,7 @@
 module Api
     class StocksController < ApplicationController
         def index
-            service = Api::StockServices::IndexService.new
+            service = Api::Stocks::IndexService.new
             @result = service.execute
             # data가 있을때
             # data가 없을때
@@ -19,7 +19,7 @@ module Api
         end
 
         def detail
-            service = Api::StockServices::DetailService.new(params)
+            service = Api::Stocks::DetailService.new(params)
             @result = service.execute
             if @result.save
                 # 리턴값이 true인경우
@@ -29,12 +29,6 @@ module Api
                 render json: @result['message'], status: :unprocessable_entity
               end
         end
-
-        def detail
-          service = Api::Stocks::DetailService.new(params)
-          @result = service.execute
-        end
-
         def search
           service = Api::Stocks::SearchService.new(params)
           @res = service.execute
@@ -48,6 +42,6 @@ module Api
             render status: :no_content
           end
         end
-        
+
     end
 end
