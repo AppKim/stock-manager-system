@@ -1,5 +1,4 @@
 module Api
-<<<<<<< HEAD
     class StocksController < ApplicationController
         def index
             service = Api::StockServices::IndexService.new
@@ -13,15 +12,6 @@ module Api
               render json: @result['message'], status: :unprocessable_entity
             end
         end
-  class StocksController < ApplicationController
-    def index
-      service = Api::Stocks::IndexService.new
-      # @result = service.execute
-      # @result = Stock.find_by(st_id: 1235)
-      # @result = Stock.joins(:product).select('stocks.* , products.*')
-      @result = service.execute
-    end
-
     def create
       service = Api::Stocks::CreateService.new(params)
       service.execute
