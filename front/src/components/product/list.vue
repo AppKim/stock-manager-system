@@ -24,7 +24,7 @@
         <td class="px-2">{{ item.pr_price }}</td>
         <td class="px-2">{{ item.pr_barcode }}</td>
         <td>
-          <img width="100px" :src="item.pr_img" />
+          <img class="max-w-none px-2 py-1" width="100px" :src="item.pr_img" />
           <!-- <img class="max-w-none px-2 py-1" width="100px" src="http://picsum.photos/100" /> -->
         </td>
         <td class="px-2">{{ item.pr_expiration }}</td>
