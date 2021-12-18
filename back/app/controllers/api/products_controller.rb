@@ -3,23 +3,22 @@ module Api
     def index
       service = Api::Products::IndexService.new
       @result = service.execute
-      p @result
     end
 
     def create
       service = Api::Products::CreateService.new(params)
-      @result = service.execute
-      if @result['message'].present?
-        render json: @result['message'], status: :unprocessable_entity
+      @res = service.execute
+      if @res[:result].eql? 'success'
+        render json: @res, status: :created
       else
-        render json: { message: 'created' }, status: :created
+        render json: @res, status: :internal_server_error
       end
     end
 
     def update
       service = Api::Products::UpdateService.new(params)
       @result = service.execute
-      if(@result == true)
+      if @result == true
         render json: { message: 'ok' }, status: :ok
       else
         render json: @result, status: :precondition_failed
@@ -29,7 +28,7 @@ module Api
     def destroy
       service = Api::Products::DestroyService.new(params)
       @result = service.execute
-      if(@result == true)
+      if @result == true
         render json: { message: 'ok' }, status: :ok
       else
         render json: @result, status: :gone

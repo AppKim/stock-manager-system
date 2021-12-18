@@ -1,5 +1,5 @@
 module Api
-    module BrandServices
+    module Brands
         class IndexService
             def initialize
             end
