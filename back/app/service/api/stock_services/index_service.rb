@@ -2,6 +2,9 @@ module Api
     module StockServices
         class IndexService
             def initialize
+                @response = {
+                    result: '',
+                }
             end
             
             def execute
@@ -18,7 +21,16 @@ module Api
                  products.pr_price, 
                  count(stocks.st_pr_id) as count')
                  .group('stocks.st_pr_id')
+                 print "これはprintメソッドです。"
+                 @response.store('result', @result )
+                # p "hello world ; #{@response}"
             end
+
+            rescue StandardError => e
+                 result.store('message', e.message)
+                Rails.logger.error(e.message)
+                Rails.logger.error(e.backtrace.join("\n"))
+
         end
     end
 end
