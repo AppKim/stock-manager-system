@@ -6,7 +6,7 @@ module Api
     end
 
     def create
-      service = Api::Products::CreateService.new(params)
+      service = Api::Products::CreateService.new(user_params)
       @res = service.execute
       if @res[:result].eql? 'success'
         render json: @res, status: :created
@@ -38,6 +38,10 @@ module Api
     def show
       service = Api::Products::SearchService.new(params)
       @products = service.execute
+    end
+
+    def user_params
+      params.permit(:productBrand, :productName, :productPrice, :productImage, :productBarcode, :productExpiration)
     end
   end
 end
