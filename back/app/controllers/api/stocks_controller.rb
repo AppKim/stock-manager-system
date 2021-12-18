@@ -29,6 +29,7 @@ module Api
                 render json: @result['message'], status: :unprocessable_entity
               end
         end
+        
         def search
           service = Api::Stocks::SearchService.new(params)
           @res = service.execute

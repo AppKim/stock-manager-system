@@ -21,8 +21,8 @@ module Api
                  products.pr_price, 
                  count(stocks.st_pr_id) as count')
                  .group('stocks.st_pr_id')
-                 print "これはprintメソッドです。"
                  @response.store('result', @result )
+                 print "★★これはprintメソッドです。★★"
                 # p "hello world ; #{@response}"
             end
 
