@@ -49,6 +49,7 @@ views
   ├── components // 上記の説明参照
   ├── router // 読んでください　ー＞　https://router.vuejs.org/guide/
   ├── store // 読んでください　ー＞　https://vuex.vuejs.org/guide/
+  ├── types // 型定義
   ├── utils // Global変数、関数を置くところ
   ├── views // 上記の説明参照
   ├── App.vue // default
