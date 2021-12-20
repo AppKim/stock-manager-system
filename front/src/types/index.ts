@@ -1,3 +1,3 @@
-import { Product } from './product'
+import * as Product from './product'
 
 export { Product }
