@@ -4,7 +4,17 @@
     <header>
       <StockSearch v-on:search-result="searchResult"></StockSearch>
     </header>
-    <button class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700" @click="setCreate()">
+    <button class="
+        border border-blue-500 border-solid
+        rounded
+        w-40
+        h-12
+        cursor-pointer
+        bg-blue-500
+        text-lg text-white
+        hover:bg-white hover:text-blue-300 hover:shadow-none
+        disabled:opacity-50
+      " @click="setCreate()">
       등록
     </button>
     <section class="flex h-full gap-5">
@@ -12,7 +22,11 @@
         <StockList v-bind:items="data.items" v-on:initialized="initialized" v-on:showdetails="showdetails"></StockList>
       </article>
       <article class="flex-auto">
-        <StockCreate v-if="isCreate" v-bind:brandList="brandList"></StockCreate>
+        <StockCreate v-if="isCreate"
+        v-bind:brandList="brandList" 
+        v-bind:productList="productList"
+        @createStock="createStock">
+        </StockCreate>
         <StockEdit
           v-else
           v-bind:stockDetail="selectedItem"
@@ -58,6 +72,8 @@ export default Vue.extend({
       this.data.items = data
       // 브랜드 리스트(set 으로 브랜드 중복 제거)
       this.brandList = Array.from(new Set(data.map((el) => el.br_name)))
+      // 프로덕트 리스트(set 으로 프로덕트 중복 제거)
+      this.productList = Array.from(new Set(data.map((el) => el.pr_name)))
     },
     // List.vue에서 받은 내용으로 조건설정
     showdetails(details: Array<IStockDetailModel>) {
@@ -79,5 +95,6 @@ export default Vue.extend({
       this.isCreate = inputValue
     },
   },
+  
 })
 </script>

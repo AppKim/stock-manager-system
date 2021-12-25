@@ -1,4 +1,5 @@
 <template>
+<form v-on:submit.prevent='createFormData'>
   <div class="bg-white h-full w-full p-2.5">
     <h2 class="text-2xl font-bold bg-tableColor-bg p-1.5">상품 등록</h2>
     <hr class="mt-2.5 mb-2.5" />
@@ -20,9 +21,10 @@
           name="products"
           id="products-select"
           :disabled="disabled"
+          v-model="stockProduct"
           class="p-2 rounded focus:ring-gray-300 focus:outline-none bg-white bg-clip-padding border border-gray-500"
         >
-          <option v-for="(brand, i) in brandList" :key="i">{{ brand }}</option>
+          <option v-for="(stock, i) in stockList" :key="i">{{ stock }}</option>
         </select>
       </div>
       <div class="flex justify-between items-center">
@@ -50,12 +52,13 @@
           type="button"
           class="px-4 py-2 hover:opacity-50 cursor-pointer rounded-md text-white bg-green-500"
           value="등록"
-          @click="createStock"
+          @click="createFormData"
         />
         <button class="px-4 py-2 hover:opacity-50 cursor-pointer rounded-md text-white bg-gray-500">취소</button>
       </div>
     </section>
   </div>
+</form>
 </template>
 
 <script lang="ts">
@@ -65,6 +68,10 @@ export default {
       type: Array,
       required: true,
     },
+    productList:{
+      type: Array,
+      required: true,
+    }
   },
   data() {
     return {
@@ -73,8 +80,7 @@ export default {
       brandId: '',
       stockBrand: this.brandList[0],
       stockCount: '',
-
-      disabled: false,
+      stockProduct: this.productList[0],
     }
   },
   methods: {

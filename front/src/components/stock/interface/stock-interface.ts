@@ -7,10 +7,17 @@ export interface Deatilparam {
     st_pr_id: number
 }
 
+export interface Createparam {
+    st_pr_id: number
+    st_expiration: string
+    repeat: number
+}
+
 export interface IStockModel {
     st_pr_id: number
     pr_ca_id: number
     br_name: string
+    pr_name: string
     pr_price: number
     count: number
 }
@@ -22,6 +29,14 @@ export interface IStockDetailModel {
     pr_price: string
     pr_expiration: string
     count: number
+}
+
+export interface IStockCreateModel {
+    st_id: number
+    st_pr_id: number
+    st_exist: number
+    created_at: string
+    updated_at: string
 }
 
 export interface IResponse<T> {

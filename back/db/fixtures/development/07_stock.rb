@@ -5,5 +5,6 @@
       s.st_exist = 1
       s.created_at = DateTime.new(2021,9,30,8)
       s.updated_at = DateTime.new(2021,9,30,8)
+      s.st_expiration = DateTime.new(2021,9,30,8)
   end
 end
