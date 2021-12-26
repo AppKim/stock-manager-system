@@ -28,7 +28,7 @@ module Api
       def update_product
         ApplicationRecord.transaction do
           @product = Product.find(params[:id])
-          productImage = check_update_image(@product.pr_img)
+          #productImage = check_update_image(@product.pr_img)
           
           # https://edgeapi.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-update-21
           @product.update!(
@@ -37,7 +37,7 @@ module Api
             pr_br_id: params[:productBrand],
             pr_barcode: params[:productBarcode],
             pr_expiration: params[:productExpiration],
-            pr_img: productImage
+            #pr_img: productImage
           )
         end
         rescue StandardError => e
