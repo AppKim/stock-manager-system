@@ -1,5 +1,5 @@
 <template>
-  <aside class="flex fixed top-0 z-10 flex-col w-60 min-h-[1123px] text-xs font-normal bg-gray-200">
+  <aside class="flex fixed top-0 z-10 flex-col w-60 min-h-[100vh] text-xs font-normal bg-gray-200">
     <!-- Title -->
     <div class="flex flex-col relative justify-center items-center h-20">
       <div class="text-lg">Stock Manager</div>
@@ -24,11 +24,11 @@
   </aside>
 </template>
 <script lang="ts">
-import Vue from "vue"
-import { RouteConfig } from "vue-router"
+import Vue from 'vue'
+import { RouteConfig } from 'vue-router'
 
 export default Vue.extend({
-  name: "SideBar",
+  name: 'SideBar',
   created() {
     this.pages = this.$router.options.routes as RouteConfig[]
   },
