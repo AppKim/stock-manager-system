@@ -28,8 +28,8 @@
           <!-- <img class="max-w-none px-2 py-1" width="100px" src="http://picsum.photos/100" /> -->
         </td>
         <td class="px-2">{{ item.pr_expiration }}</td>
-        <td class="px-2">{{ item.pr_us_id }}</td>
-        <td class="space-x-1">
+        <td class="px-2 text-right">{{ item.pr_us_id }}</td>
+        <td class="space-x-1 px-2">
           <button
             @click="clickEditBtn(item)"
             class="px-2 py-1 bg-green-500 text-xs rounded-md text-white hover:bg-green-700"
