@@ -10,7 +10,9 @@
       <!-- <ProductSearch @setInput="setInput"></ProductSearch> -->
     </div>
     <div class="flex-1 flex">
-      <Loading v-if="isLoading" />
+      <div v-if="isLoading" class="w-full m-auto">
+        <Loading />
+      </div>
       <ProductList
         v-else
         v-bind:items="items"
@@ -34,6 +36,7 @@
 import axios from 'axios'
 import Vue from 'vue'
 import { axiosPost, axiosGet, axiosPut, axiosDelete } from '@/api/axios.js'
+import { set } from 'vue/types/umd'
 
 export default Vue.extend({
   name: 'Product',
@@ -48,9 +51,8 @@ export default Vue.extend({
       updateProductInfo: {},
     }
   },
-  mounted() {
-    this.getBrand(), this.getProduct()
-    this.getCategory()
+  async created() {
+    await Promise.all([this.getBrand(), this.getCategory(), this.getProduct()])
   },
   components: {
     ProductList: () => import('@/components/product/list.vue'),
@@ -98,38 +100,34 @@ export default Vue.extend({
           console.error(error)
         })
     },
-    getBrand() {
-      axiosGet('api/brands')
-        .then((rs) => {
-          console.log(rs)
-          this.brands = rs.data.brands
-          console.log(rs)
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+    async getBrand() {
+      try {
+        const result = await axiosGet('api/brands')
+        this.brands = result.data.brands
+      } catch (e) {
+        console.error(e)
+      }
     },
-    getCategory() {
-      axiosGet('api/categories')
-        .then((rs) => {
-          this.category = rs.data.categories
-          console.log(rs)
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+    async getCategory() {
+      try {
+        const result = await axiosGet('api/categories')
+        this.category = result.data.categories
+      } catch (e) {
+        console.error(e)
+      }
     },
-    getProduct() {
+    async getProduct() {
       this.isLoading = true
-      axiosGet('api/products')
-        .then((rs) => {
-          this.items = rs.data.results
-          console.log(rs)
+      try {
+        const result = await axiosGet('api/products')
+        this.items = result.data.results
+      } catch (e) {
+        console.error(e)
+      } finally {
+        setTimeout(() => {
           this.isLoading = false
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+        }, 1000)
+      }
     },
     setInput(searchItems, searchContent) {
       console.log(searchItems, searchContent)

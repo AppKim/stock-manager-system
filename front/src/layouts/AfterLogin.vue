@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full min-h-[1123px] bg-gray-300">
+  <div class="flex h-full min-h-[100vh] bg-gray-300">
     <transition name="fade">
       <div v-show="isOpen" class="w-60">
         <SideBar @toggleBtnClick="toggleBtnClick" />
