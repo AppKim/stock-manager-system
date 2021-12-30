@@ -222,6 +222,16 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+
+export type DataType = {
+  productName: string
+  productPrice: string
+  productBrand: string
+  productBarcode: string
+  productExpiration: string
+  imageFile: string
+}
+
 export default Vue.extend({
   props: {
     brands: {
@@ -232,12 +242,13 @@ export default Vue.extend({
       type: Boolean,
       required: true,
     },
+    // TODO: updateProduct Type 定義しよう
     updateProductInfo: {
       type: Object,
       required: true,
     },
   },
-  data() {
+  data(): DataType {
     return {
       productName: '',
       productPrice: '',
@@ -248,19 +259,18 @@ export default Vue.extend({
     }
   },
   computed: {
-    title() {
+    title(): string {
       return this.onUpdate ? '상품수정' : '상품등록'
     },
   },
   watch: {
-    updateProductInfo(item) {
+    updateProductInfo(item): void {
       this.productName = item.pr_name
       this.productPrice = item.pr_price
       this.productBrand = item.pr_br_id
       this.productBarcode = item.pr_barcode
       this.productExpiration = new Date(item.pr_expiration).toISOString().slice(0, 10)
       this.imageFile = item.pr_img
-      console.log(item)
     },
   },
 
@@ -268,12 +278,12 @@ export default Vue.extend({
     setImage(e): void {
       this.imageFile = e.target.files[0]
     },
-    createProduct() {
+    createProduct(): void {
       this.$emit('createProduct', this.createFormData())
       // :TODO add loading
     },
 
-    updateProduct() {
+    updateProduct(): void {
       this.$emit('updateProduct', this.createFormData())
       // :TODO add loading
     },
@@ -289,7 +299,7 @@ export default Vue.extend({
       return formData
     },
 
-    init() {
+    init(): void {
       this.productName = ''
       this.productPrice = ''
       this.productBrand = ''
