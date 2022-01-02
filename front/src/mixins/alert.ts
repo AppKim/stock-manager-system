@@ -1,14 +1,14 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  // Todo: 型をどう読み込ませればいい？
+  // TODO: 型をどう読み込ませればいい？
   data() {
     return {
       $swal: {},
     }
   },
   methods: {
-    // Note: OKのみ
+    // OKのみ
     /**
      * 完了と問題用のボタン一つのアラート
      * @param TypeAlert success または error を選んでください [success: 確認, error: 問題]
