@@ -222,6 +222,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import alert from '@/mixins/alert'
 
 export type DataType = {
   productName: string
@@ -233,6 +234,7 @@ export type DataType = {
 }
 
 export default Vue.extend({
+  mixins: [alert],
   props: {
     brands: {
       type: Array,
@@ -283,8 +285,11 @@ export default Vue.extend({
       // :TODO add loading
     },
 
-    updateProduct(): void {
-      this.$emit('updateProduct', this.createFormData())
+    async updateProduct(): Promise<any> {
+      const result = await this.mixinConfirm('진짜 갱신하시겠습니까?', this.productName)
+      if (result) {
+        this.$emit('updateProduct', this.createFormData())
+      }
       // :TODO add loading
     },
 
